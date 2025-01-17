@@ -1,0 +1,1 @@
+All content on the [Epistemic Technology Website](https://epistemic.technology) © 2025 by Epistemic Technology LLC is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 
