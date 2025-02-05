@@ -1,0 +1,40 @@
+{{ warnf "Params: %s" $.Params }}
+<div class="social-links">
+    {{ $length := len .Params }}
+    {{ range $i := seq 0 (sub (div $length 2) 1) }}
+        {{ $urlIndex := mul $i 2 }}
+        {{ $iconIndex := add (mul $i 2) 1 }}
+        {{ $url := index $.Params $urlIndex }}
+        {{ $iconFile := index $.Params $iconIndex }}
+        {{ $icon := resources.Get (printf "images/%s" $iconFile) }}
+        {{ if not $icon }}
+            {{ errorf "Could not find icon file: %s" $iconFile }}
+        {{ end }}
+        <a href="{{ $url }}" class="social-link" target="_blank" rel="noopener noreferrer">
+            {{ $icon.Content | safeHTML }}
+        </a>
+    {{ end }}
+</div>
+
+<style>
+.social-links {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+.social-link {
+    color: var(--color-text);
+    transition: color 0.2s ease;
+}
+
+.social-link:hover {
+    color: var(--color-primary);
+}
+
+.social-link svg {
+    width: 24px;
+    height: 24px;
+}
+</style>

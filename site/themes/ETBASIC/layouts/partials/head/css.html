@@ -1,0 +1,21 @@
+{{- $css := slice }}
+{{- with resources.Get "css/reset.css" }}
+  {{- $css = $css | append . }}
+{{- end }}
+
+{{- $cssFiles := resources.Match "css/*.css" }}
+{{- range $cssFiles }}
+  {{- if ne .Name "css/reset.css" }}
+    {{- $css = $css | append . }}
+  {{- end }}
+{{- end }}
+
+{{- $bundle := resources.Concat "css/bundle.css" $css }}
+
+{{- if eq hugo.Environment "development" }}
+  <link rel="stylesheet" href="{{ $bundle.RelPermalink }}">
+{{- else }}
+  {{- with $bundle | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
+  {{- end }}
+{{- end }}

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Home on Epistemic Technology</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content in Home on Epistemic Technology</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 04 Feb 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>About</title>
+      <link>http://localhost:1313/about/</link>
+      <pubDate>Tue, 04 Feb 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/about/</guid>
+      <description>&lt;h2 id=&#34;mike-thicke-founder&#34;&gt;Mike Thicke, Founder&lt;/h2&gt;&#xA;&#xA;&lt;div class=&#34;social-links&#34;&gt;&#xA;    &#xA;    &#xA;        &#xA;        &#xA;        &#xA;        &#xA;        &#xA;        &#xA;        &lt;a href=&#34;https://www.linkedin.com/in/mike-thicke-38aa92303/&#34; class=&#34;social-link&#34; target=&#34;_blank&#34; rel=&#34;noopener noreferrer&#34;&gt;&#xA;            &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;32&#34; height=&#34;32&#34; viewBox=&#34;0 0 32 32&#34;&gt;&lt;path d=&#34;M26.111,3H5.889c-1.595,0-2.889,1.293-2.889,2.889V26.111c0,1.595,1.293,2.889,2.889,2.889H26.111c1.595,0,2.889-1.293,2.889-2.889V5.889c0-1.595-1.293-2.889-2.889-2.889ZM10.861,25.389h-3.877V12.87h3.877v12.519Zm-1.957-14.158c-1.267,0-2.293-1.034-2.293-2.31s1.026-2.31,2.293-2.31,2.292,1.034,2.292,2.31-1.026,2.31-2.292,2.31Zm16.485,14.158h-3.858v-6.571c0-1.802-.685-2.809-2.111-2.809-1.551,0-2.362,1.048-2.362,2.809v6.571h-3.718V12.87h3.718v1.686s1.118-2.069,3.775-2.069,4.556,1.621,4.556,4.975v7.926Z&#34; fill-rule=&#34;evenodd&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;        &lt;/a&gt;&#xA;    &#xA;        &#xA;        &#xA;        &#xA;        &#xA;        &#xA;        &#xA;        &lt;a href=&#34;https://www.github.com/mikethicke&#34; class=&#34;social-link&#34; target=&#34;_blank&#34; rel=&#34;noopener noreferrer&#34;&gt;&#xA;            &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;32&#34; height=&#34;32&#34; viewBox=&#34;0 0 32 32&#34;&gt;&lt;path d=&#34;M16,2.345c7.735,0,14,6.265,14,14-.002,6.015-3.839,11.359-9.537,13.282-.7,.14-.963-.298-.963-.665,0-.473,.018-1.978,.018-3.85,0-1.312-.437-2.152-.945-2.59,3.115-.35,6.388-1.54,6.388-6.912,0-1.54-.543-2.783-1.435-3.762,.14-.35,.63-1.785-.14-3.71,0,0-1.173-.385-3.85,1.435-1.12-.315-2.31-.472-3.5-.472s-2.38,.157-3.5,.472c-2.677-1.802-3.85-1.435-3.85-1.435-.77,1.925-.28,3.36-.14,3.71-.892,.98-1.435,2.24-1.435,3.762,0,5.355,3.255,6.563,6.37,6.913-.403,.35-.77,.963-.893,1.872-.805,.368-2.818,.963-4.077-1.155-.263-.42-1.05-1.452-2.152-1.435-1.173,.018-.472,.665,.017,.927,.595,.332,1.277,1.575,1.435,1.978,.28,.787,1.19,2.293,4.707,1.645,0,1.173,.018,2.275,.018,2.607,0,.368-.263,.787-.963,.665-5.719-1.904-9.576-7.255-9.573-13.283,0-7.735,6.265-14,14-14Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;        &lt;/a&gt;&#xA;    &#xA;&lt;/div&gt;&#xA;&#xA;&lt;style&gt;&#xA;.social-links {&#xA;    display: flex;&#xA;    gap: 1rem;&#xA;    align-items: center;&#xA;    margin: 1rem 0;&#xA;}&#xA;&#xA;.social-link {&#xA;    color: var(--color-text);&#xA;    transition: color 0.2s ease;&#xA;}&#xA;&#xA;.social-link:hover {&#xA;    color: var(--color-primary);&#xA;}&#xA;&#xA;.social-link svg {&#xA;    width: 24px;&#xA;    height: 24px;&#xA;}&#xA;&lt;/style&gt;&#xA;&#xA;&lt;p&gt;Epistemic Technology was founded in 2025 by Mike Thicke. Mike is a software developer and philosopher of science currently based in Kingston, New York.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Contact Us</title>
+      <link>http://localhost:1313/contact/</link>
+      <pubDate>Tue, 04 Feb 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/contact/</guid>
+      <description>&lt;p&gt;We&amp;rsquo;d love to discuss how we might work together! Please submit a request and we should get back to you within the next business day.&lt;/p&gt;&#xA;&lt;p&gt;Note: We will &lt;em&gt;never&lt;/em&gt; use your email address for marketing purposes or share it with other parties. It will only be used for correspondence relating to your specific request.&lt;/p&gt;&#xA;&lt;form id=&#34;contact-form&#34; action=&#34;https://formspree.io/f/YOUR_FORM_ID&#34; method=&#34;POST&#34;&gt;&#xA;    &lt;div class=&#34;form-group&#34;&gt;&#xA;        &lt;label for=&#34;name&#34;&gt;Name:&lt;/label&gt;&#xA;        &lt;input type=&#34;text&#34; id=&#34;name&#34; name=&#34;name&#34; required&gt;&#xA;    &lt;/div&gt;&#xA;&#xA;    &lt;div class=&#34;form-group&#34;&gt;&#xA;        &lt;label for=&#34;email&#34;&gt;Email:&lt;/label&gt;&#xA;        &lt;input type=&#34;email&#34; id=&#34;email&#34; name=&#34;email&#34; required&gt;&#xA;    &lt;/div&gt;&#xA;&#xA;    &lt;div class=&#34;form-group&#34;&gt;&#xA;        &lt;label for=&#34;subject&#34;&gt;Subject:&lt;/label&gt;&#xA;        &lt;select id=&#34;subject&#34; name=&#34;subject&#34; required&gt;&#xA;            &lt;option value=&#34;general&#34;&gt;General Inquiries&lt;/option&gt;&#xA;            &lt;option value=&#34;education&#34;&gt;Education &amp; Workshops&lt;/option&gt;&#xA;            &lt;option value=&#34;consulting&#34;&gt;Consulting&lt;/option&gt;&#xA;            &lt;option value=&#34;development&#34;&gt;Development&lt;/option&gt;&#xA;        &lt;/select&gt;&#xA;    &lt;/div&gt;&#xA;&#xA;    &lt;div class=&#34;form-group&#34;&gt;&#xA;        &lt;label for=&#34;message&#34;&gt;Message:&lt;/label&gt;&#xA;        &lt;textarea id=&#34;message&#34; name=&#34;message&#34; rows=&#34;5&#34; required&gt;&lt;/textarea&gt;&#xA;    &lt;/div&gt;&#xA;&#xA;    &lt;button type=&#34;submit&#34;&gt;Send Message&lt;/button&gt;&#xA;&lt;/form&gt;</description>
+    </item>
+    <item>
+      <title>Mission</title>
+      <link>http://localhost:1313/mission/</link>
+      <pubDate>Tue, 04 Feb 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/mission/</guid>
+      <description>&lt;p&gt;Our mission is to assist with the adoption of artificial intelligence and other emerging technologies in a thoughtful way.&lt;/p&gt;&#xA;&lt;p&gt;From large language models powering increasingly intelligent chat bots to services creating more and more realistic images and videos to emerging &amp;ldquo;agents&amp;rdquo; capable of performing complex tasks autonomously, generative AI has already transformed the way we live and work. There is every reason to expect that these advancements will continue, though nobody knows how quickly or in exactly what direction.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Services</title>
+      <link>http://localhost:1313/services/</link>
+      <pubDate>Tue, 04 Feb 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/services/</guid>
+      <description>&lt;h2 id=&#34;education&#34;&gt;Education&lt;/h2&gt;&#xA;&lt;p&gt;We offer single-day workshops for teams of up to 25 people, either in-person or remote. The aim of these workshops is to give your team a head start in thinking about how you use and communicate about AI.&lt;/p&gt;&#xA;&lt;p&gt;Possible workshops include:&lt;/p&gt;&#xA;&lt;h3 id=&#34;how-to-talk-to-each-other-about-ai&#34;&gt;How to talk to each other about AI&lt;/h3&gt;&#xA;&lt;p&gt;This workshop is intended for multidisciplinary teams where people in different roles might have very different understandings of and experiences with AI. The aim of the workshop is to bridge the gap so that everyone on the team has a shared understanding of AI technologies and how to use them consistently with your values.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Post 3</title>
+      <link>http://localhost:1313/posts/post-3/</link>
+      <pubDate>Wed, 15 Mar 2023 11:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/posts/post-3/</guid>
+      <description>&lt;p&gt;Occaecat aliqua consequat laborum ut ex aute aliqua culpa quis irure esse magna dolore quis. Proident fugiat labore eu laboris officia Lorem enim. Ipsum occaecat cillum ut tempor id sint aliqua incididunt nisi incididunt reprehenderit. Voluptate ad minim sint est aute aliquip esse occaecat tempor officia qui sunt. Aute ex ipsum id ut in est velit est laborum incididunt. Aliqua qui id do esse sunt eiusmod id deserunt eu nostrud aute sit ipsum. Deserunt esse cillum Lorem non magna adipisicing mollit amet consequat.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Post 2</title>
+      <link>http://localhost:1313/posts/post-2/</link>
+      <pubDate>Wed, 15 Feb 2023 10:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/posts/post-2/</guid>
+      <description>&lt;p&gt;Anim eiusmod irure incididunt sint cupidatat. Incididunt irure irure irure nisi ipsum do ut quis fugiat consectetur proident cupidatat incididunt cillum. Dolore voluptate occaecat qui mollit laborum ullamco et. Ipsum laboris officia anim laboris culpa eiusmod ex magna ex cupidatat anim ipsum aute. Mollit aliquip occaecat qui sunt velit ut cupidatat reprehenderit enim sunt laborum. Velit veniam in officia nulla adipisicing ut duis officia.&lt;/p&gt;&#xA;&lt;p&gt;Exercitation voluptate irure in irure tempor mollit Lorem nostrud ad officia. Velit id fugiat occaecat do tempor. Sit officia Lorem aliquip eu deserunt consectetur. Aute proident deserunt in nulla aliquip dolore ipsum Lorem ut cupidatat consectetur sit sint laborum. Esse cupidatat sit sint sunt tempor exercitation deserunt. Labore dolor duis laborum est do nisi ut veniam dolor et nostrud nostrud.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Post 1</title>
+      <link>http://localhost:1313/posts/post-1/</link>
+      <pubDate>Sun, 15 Jan 2023 09:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/posts/post-1/</guid>
+      <description>&lt;p&gt;Tempor proident minim aliquip reprehenderit dolor et ad anim Lorem duis sint eiusmod. Labore ut ea duis dolor. Incididunt consectetur proident qui occaecat incididunt do nisi Lorem. Tempor do laborum elit laboris excepteur eiusmod do. Eiusmod nisi excepteur ut amet pariatur adipisicing Lorem.&lt;/p&gt;&#xA;&lt;p&gt;Occaecat nulla excepteur dolore excepteur duis eiusmod ullamco officia anim in voluptate ea occaecat officia. Cillum sint esse velit ea officia minim fugiat. Elit ea esse id aliquip pariatur cupidatat id duis minim incididunt ea ea. Anim ut duis sunt nisi. Culpa cillum sit voluptate voluptate eiusmod dolor. Enim nisi Lorem ipsum irure est excepteur voluptate eu in enim nisi. Nostrud ipsum Lorem anim sint labore consequat do.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

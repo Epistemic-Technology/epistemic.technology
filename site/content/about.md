@@ -1,0 +1,32 @@
+---
+title: "About"
+date: 2025-02-04
+draft: false
+---
+
+## Mike Thicke, Founder
+
+{{< socials 
+    "https://www.linkedin.com/in/mike-thicke-38aa92303/" "linkedin.svg"
+    "https://www.github.com/mikethicke" "github.svg"     
+>}}
+
+Epistemic Technology was founded in 2025 by Mike Thicke. Mike is a software developer and philosopher of science currently based in Kingston, New York. 
+
+<div class="img-right headshot">
+    <img src="/images/mike-headshot.png" alt="Mike Thicke, Founder" />
+</div>
+
+Mike has a PhD in History and Philosophy of Science and Technology from the University of Toronto (2016). His dissertation examined attempts by philosophers to model scientific activities using tools and analogies from economics. He has taught college courses in history and philosophy of science, economics and the history of economic thought, writing, and literature. His publications include:
+
+- “[Evaluating Formal Models of Science.](https://doi.org/10.1007/s10838-018-9440-1)” Journal for General Philosophy of Science (2019) 
+- “[Prediction Markets for Science: Is the Cure Worse Than the Disease?](https://dx.doi.org/10.1080/02691728.2017.1346720)” Social Epistemology. Vol. 31, No. 5, 451-467 (2017). 
+- “[Market Epistemology.](https://doi.org/10.1007/s11229-017-1464-2)” Synthese 4.6 (2017). 
+
+Mike was tech lead for the Knowledge Commons project with Mesh Research at Michigan State University from 2021-2024, where he led a small team developing technology for open research. He still works with them as a part-time developer.
+
+Mike is experienced with development in Go, PHP (WordPress and Laravel), React, and Python. He has administered AWS services extensively, and is proficient with standard development tools and processes including git, CI/CD, Docker, and automated testing.
+
+## The Team
+
+As this is a new endeavor, Mike is currently the sole member of the Epistemic Technology team, but there are plans to grow! If you are interested in collaborating, please [contact us](/contact).

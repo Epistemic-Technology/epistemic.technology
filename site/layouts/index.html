@@ -1,0 +1,43 @@
+{{ define "main" }}
+    <section id="hero" class="wide">
+        <div class="logo logo-hero">
+            {{ partial "logo.html" . }}
+        </div>
+        <div id="hero-content">
+            <h1>Epistemic Technology</h1>
+            <h2>Education ⋅ Consulting ⋅ Development</h2>
+            <h3>"A thoughtful approach to AI"</h3>
+        </div>
+    </section>
+    <div class="narrow">
+        <section id="mission">
+            <h2>Mission</h2>
+            <p>Our mission is to help businesses and organizations take a thoughtful approach to using artificial intelligence and other emerging technologies. In today's world we cannot ignore the potentially transformative benefits of AI, but we equally cannot ignore its many pitfalls and potential harms. Let us help you learn about, plan, and develop an approach that fits with your values.</p>
+            <p><a href="/mission" class="read-more">Read More</a></p>
+        </section>
+        <section id="services">
+            <h2>Services</h2>
+            <div class="cards-grid">
+                {{ partial "card.html" (dict "heading" "Education" "content" "We offer workshops to help your team understand the AI landscape and how to use AI technologies effectively while managing the risks to you and your users." "link" "/services#education") }}
+                {{ partial "card.html" (dict "heading" "Consulting" "content" "From targeted reports to full-scale strategic planning, we can help you navigate the complexities of AI and emerging technologies." "link" "/services#consulting") }}
+                {{ partial "card.html" (dict "heading" "Development" "content" "We can assist your development team with implementing AI features is a responsible way that doesn't compromise your users' experience." "link" "/services#development") }}
+            </div>
+        </section>
+        <section id="about">
+            <h2>About</h2>
+                <p>Epistemic Technology combines engineering expertise with analytical and communication skills to help you navigate the complexities of AI and emerging technologies.</p>
+                <div class="about-content">
+                <div class="about-text">
+                    <p>Mike Thicke is the founder of Epistemic Technology. He has an academic background in history and philosophy of science and technology, with a PhD from the University of Toronto. He also has a degree in computer science, and was tech lead for the Knowledge Commons project, part of Mesh Research at Michigan State University.</p>
+                </div>
+                <div class="about-image">
+                    <img src="/images/mike-headshot.png" alt="Mike Thicke, Founder" />
+                </div>
+            </div>
+        </section>
+        <section id="contact">
+            <h2>Contact</h2>
+            {{ partial "contact.html" }}
+        </section>
+    </div>
+{{ end }}

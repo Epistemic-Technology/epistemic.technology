@@ -1,0 +1,11 @@
+baseURL = 'https://epistemic.technology'
+languageCode = 'en-us'
+title = 'Epistemic Technology'
+theme = 'ETBASIC'
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.parser]
+      attribute = true
+    [markup.goldmark.renderer]
+      unsafe = true  # This allows raw HTML
