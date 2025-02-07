@@ -70,7 +70,7 @@ func handleContact(w http.ResponseWriter, r *http.Request) {
 
 func sendSendGridEmail(submission ContactSubmission) {
 	go func() {
-		from := mail.NewEmail(submission.Name, submission.Email)
+		from := mail.NewEmail(submission.Name, os.Getenv("CONTACT_SENDER_EMAIL"))
 		to := mail.NewEmail("Epistemic Technology", os.Getenv("CONTACT_EMAIL"))
 		message := mail.NewSingleEmail(
 			from,
@@ -79,6 +79,7 @@ func sendSendGridEmail(submission ContactSubmission) {
 			submission.Message,
 			submission.Message,
 		)
+		message.ReplyTo = mail.NewEmail(submission.Name, submission.Email)
 		log.Printf(
 			"Sending contact email from %s to %s with subject %s",
 			submission.Name,
@@ -96,7 +97,11 @@ func sendSendGridEmail(submission ContactSubmission) {
 			log.Printf("Error sending email: %v", err)
 			return
 		}
-		log.Printf("Email sent successfully: %v", response)
+		if response.StatusCode >= 400 {
+			log.Printf("Error sending email: %v", response)
+			return
+		}
+		log.Printf("Email sent successfully")
 	}()
 }
 
@@ -115,6 +120,9 @@ func main() {
 	}
 	if os.Getenv("CONTACT_EMAIL") == "" {
 		os.Setenv("CONTACT_EMAIL", "nobody@example.invalid")
+	}
+	if os.Getenv("CONTACT_SENDER_EMAIL") == "" {
+		os.Setenv("CONTACT_SENDER_EMAIL", "nobody@example.invalid")
 	}
 
 	// Set up the contact endpoint
