@@ -9,3 +9,7 @@ theme = 'ETBASIC'
       attribute = true
     [markup.goldmark.renderer]
       unsafe = true  # This allows raw HTML
+
+[params]
+  # Use getenv with a default value as fallback
+  formSubmitEndpoint ="http://localhost:8080/" 
