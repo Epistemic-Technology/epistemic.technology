@@ -1,4 +1,4 @@
-<form id="contact-form" onsubmit="handleSubmit(event)" method="POST">
+<form id="contact-form" onsubmit="handleSubmit(event)" method="POST" data-endpoint="{{ .Site.Params.formSubmitEndpoint }}">
     <div class="form-group">
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" required>
@@ -46,7 +46,10 @@
                 message: document.getElementById('message').value
             };
             
-            const response = await fetch('{{ $.Site.Params.formSubmitEndpoint }}', {
+            const formElement = document.getElementById('contact-form');
+            const endpoint = formElement.dataset.endpoint;
+            
+            const response = await fetch(endpoint, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -11,5 +11,4 @@ theme = 'ETBASIC'
       unsafe = true  # This allows raw HTML
 
 [params]
-  # Use getenv with a default value as fallback
-  formSubmitEndpoint ="http://localhost:8080/" 
+  formSubmitEndpoint = "http://localhost:8080/" 
