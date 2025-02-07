@@ -6,6 +6,9 @@ import (
 	"log"
 	"net/http"
 	"os"
+
+	"github.com/sendgrid/sendgrid-go"
+	"github.com/sendgrid/sendgrid-go/helpers/mail"
 )
 
 type ContactSubmission struct {
@@ -56,18 +59,34 @@ func handleContact(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// TODO: Add email validation
-	// TODO: Add actual email sending logic here
-
-	// For now, just log the submission
-	log.Printf("Received contact submission from %s (%s): %s\n",
-		submission.Name, submission.Email, submission.Subject)
+	sendSendGridEmail(submission)
 
 	response := Response{
 		Success: true,
 		Message: "Contact submission received successfully",
 	}
 	sendJSONResponse(w, http.StatusOK, response)
+}
+
+func sendSendGridEmail(submission ContactSubmission) {
+	go func() {
+		from := mail.NewEmail(submission.Name, submission.Email)
+		to := mail.NewEmail("Epistemic Technology", os.Getenv("CONTACT_EMAIL"))
+		message := mail.NewSingleEmail(
+			from,
+			submission.Subject,
+			to,
+			submission.Message,
+			submission.Message,
+		)
+		client := sendgrid.NewSendClient(os.Getenv("SENDGRID_API_KEY"))
+		_, err := client.Send(message)
+		if err != nil {
+			log.Printf("Error sending email: %v", err)
+			return
+		}
+		log.Printf("Email sent successfully")
+	}()
 }
 
 func sendJSONResponse(w http.ResponseWriter, status int, data interface{}) {
@@ -82,6 +101,9 @@ func main() {
 	}
 	if os.Getenv("PORT") == "" {
 		os.Setenv("PORT", "8080")
+	}
+	if os.Getenv("CONTACT_EMAIL") == "" {
+		os.Setenv("CONTACT_EMAIL", "nobody@example.invalid")
 	}
 
 	// Set up the contact endpoint

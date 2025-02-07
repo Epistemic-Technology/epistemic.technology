@@ -25,3 +25,4 @@ go.work.sum
 .env
 public/
 /site/public
+sendgrid.env
