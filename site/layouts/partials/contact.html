@@ -46,7 +46,7 @@
                 message: document.getElementById('message').value
             };
             
-            const response = await fetch('{{ .Site.Params.formSubmitEndpoint }}', {
+            const response = await fetch('{{ $.Site.Params.formSubmitEndpoint }}', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
