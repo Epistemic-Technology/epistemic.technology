@@ -3,6 +3,9 @@ server {
     listen  [::]:${PORT};
     server_name  localhost;
 
+    # Log the port number on startup
+    log_notice "Server listening on port ${PORT}";
+
     #access_log  /var/log/nginx/host.access.log  main;
 
     location / {
