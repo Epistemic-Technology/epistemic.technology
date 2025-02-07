@@ -6,5 +6,5 @@ RUN CGO_ENABLED=0 GOOS=linux go build -a -ldflags '-extldflags "-static"' -o con
 
 FROM scratch
 COPY --from=builder /app/contact-backend /contact-backend
-EXPOSE 8080
+EXPOSE ${PORT:-8080}
 CMD ["/contact-backend"]
