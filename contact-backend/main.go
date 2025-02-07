@@ -81,9 +81,10 @@ func sendSendGridEmail(submission ContactSubmission) {
 		)
 		message.ReplyTo = mail.NewEmail(submission.Name, submission.Email)
 		log.Printf(
-			"Sending contact email from %s to %s with subject %s",
+			"Sending contact email from %s <%s> to %s with subject %s",
 			submission.Name,
 			submission.Email,
+			os.Getenv("CONTACT_EMAIL"),
 			submission.Subject,
 		)
 		apiKey := os.Getenv("SENDGRID_API_KEY")
