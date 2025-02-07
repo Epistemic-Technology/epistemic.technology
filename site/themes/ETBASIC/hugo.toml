@@ -1,23 +1,12 @@
-baseURL = 'https://example.org/'
+baseURL = 'https://epistemic.technology'
 languageCode = 'en-US'
-title = 'My New Hugo Site'
-
-[[menus.main]]
-name = 'Home'
-pageRef = '/'
-weight = 10
-
-[[menus.main]]
-name = 'Posts'
-pageRef = '/posts'
-weight = 20
-
-[[menus.main]]
-name = 'Tags'
-pageRef = '/tags'
-weight = 30
+title = 'Epistemic Technology'
 
 [module]
   [module.hugoVersion]
     extended = false
     min = "0.116.0"
+
+[params]
+  # Use getenv with a default value as fallback
+  formSubmitEndpoint = {{ getenv "FORM_SUBMIT_ENDPOINT" "http://localhost:8080/" }}
