@@ -1,9 +1,10 @@
 FROM golang:latest AS builder
 WORKDIR /app
 COPY . .
-RUN go build -o contact-backend .
+# Create a fully static binary
+RUN CGO_ENABLED=0 GOOS=linux go build -a -ldflags '-extldflags "-static"' -o contact-backend .
 
 FROM scratch
-COPY --from=builder /app/contact-backend /app/contact-backend
+COPY --from=builder /app/contact-backend /contact-backend
 EXPOSE 8080
-CMD ["/app/contact-backend"]
+CMD ["/contact-backend"]
