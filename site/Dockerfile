@@ -1,3 +1,6 @@
-FROM nginx:alpine
-COPY public /usr/share/nginx/html
+FROM hugomods/hugo:base AS builder
+COPY . .
+RUN hugo build
+FROM nginx:alpine AS runner
+COPY --from=builder /src/public /usr/share/nginx/html
 COPY default.conf.template /etc/nginx/templates/default.conf.template

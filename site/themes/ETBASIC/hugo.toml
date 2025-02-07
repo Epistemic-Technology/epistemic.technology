@@ -9,4 +9,4 @@ title = 'Epistemic Technology'
 
 [params]
   # Use getenv with a default value as fallback
-  formSubmitEndpoint = {{ getenv "FORM_SUBMIT_ENDPOINT" "http://localhost:8080/" }}
+  formSubmitEndpoint ="http://localhost:8080/" 
