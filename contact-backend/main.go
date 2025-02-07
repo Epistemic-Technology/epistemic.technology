@@ -79,13 +79,24 @@ func sendSendGridEmail(submission ContactSubmission) {
 			submission.Message,
 			submission.Message,
 		)
-		client := sendgrid.NewSendClient(os.Getenv("SENDGRID_API_KEY"))
-		_, err := client.Send(message)
+		log.Printf(
+			"Sending contact email from %s to %s with subject %s",
+			submission.Name,
+			submission.Email,
+			submission.Subject,
+		)
+		apiKey := os.Getenv("SENDGRID_API_KEY")
+		if apiKey == "" {
+			log.Printf("SENDGRID_API_KEY is not set")
+			return
+		}
+		client := sendgrid.NewSendClient(apiKey)
+		response, err := client.Send(message)
 		if err != nil {
 			log.Printf("Error sending email: %v", err)
 			return
 		}
-		log.Printf("Email sent successfully")
+		log.Printf("Email sent successfully: %v", response)
 	}()
 }
 
