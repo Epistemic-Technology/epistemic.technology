@@ -26,3 +26,6 @@ go.work.sum
 public/
 /site/public
 sendgrid.env
+
+# macOS system files
+.DS_Store
