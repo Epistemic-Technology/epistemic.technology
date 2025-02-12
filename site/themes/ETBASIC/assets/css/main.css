@@ -3,7 +3,7 @@
  */
 :root {
     /* Light mode colors */
-    --color-primary: hsl(93, 91%, 30%); /* #449107 green */
+    --color-primary: hsl(93, 87%, 25%);
     --color-bg: hsl(0, 0%, 100%);
     --color-text: hsl(0, 0%, 10%);
     --color-text-muted: hsl(0, 0%, 45%);
@@ -12,7 +12,7 @@
     /* Logo colors for light mode */
     --logo-primary: hsl(0, 0%, 10%);    
     --logo-secondary: hsl(0, 0%, 40%);
-    --logo-highlight: hsl(93, 91%, 30%);
+    --logo-highlight: hsl(93, 87%, 25%);
 
     --width-wide: 1200px;
     --width-narrow: 800px;
@@ -20,7 +20,7 @@
 }
 
 [data-theme="dark"] {
-    --color-primary: hsl(93, 91%, 30%);
+    --color-primary: hsl(93, 87%, 39%);
     --color-bg: hsl(0, 0%, 10%);
     --color-text: hsl(0, 0%, 90%);
     --color-text-muted: hsl(0, 0%, 60%);
@@ -29,7 +29,7 @@
     /* Logo colors for dark mode */
     --logo-primary: hsl(0, 0%, 90%);
     --logo-secondary: hsl(0, 0%, 60%);
-    --logo-highlight: hsl(93, 91%, 30%);
+    --logo-highlight: hsl(93, 87%, 39%);
 }
 
 /**
