@@ -1,22 +1,24 @@
-<label for="nav-toggle" class="nav-toggle-label">
-    <span></span>
-    <span></span>
-    <span></span>
-</label>
-<input type="checkbox" id="nav-toggle" class="nav-toggle">
-<div class="fixed-elements">
-    <a href="/" class="logo nav-logo">
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<button class="nav-toggle-label" aria-expanded="false" aria-controls="main-nav" aria-label="Toggle menu">
+    <span class="hamburger-line" aria-hidden="true"></span>
+    <span class="hamburger-line" aria-hidden="true"></span>
+    <span class="hamburger-line" aria-hidden="true"></span>
+</button>
+<input type="checkbox" id="nav-toggle" class="nav-toggle" hidden>
+<div class="fixed-elements" role="banner">
+    <a href="/" class="logo nav-logo" aria-label="Return to homepage">
         {{ partial "logo.html" . }}
     </a>
-    <div class="fixed-buttons">
+    <div class="fixed-buttons" role="group" aria-label="Page utilities">
         <button id="scroll-top" aria-label="Scroll to top" style="display: none;">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <line x1="12" y1="19" x2="12" y2="5"></line>
                 <polyline points="5 12 12 5 19 12"></polyline>
             </svg>
         </button>
-        <button id="theme-toggle" aria-label="Toggle dark mode">
-            <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <button id="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false">
+            <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <circle cx="12" cy="12" r="5"/>
                 <line x1="12" y1="1" x2="12" y2="3"/>
                 <line x1="12" y1="21" x2="12" y2="23"/>
@@ -27,41 +29,66 @@
                 <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
                 <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
             </svg>
-            <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
             </svg>
         </button>
     </div>
 </div>
-<nav class="main-nav">
+<nav class="main-nav" id="main-nav" role="navigation" aria-label="Main navigation">
     <ul class="nav-links">
-        <li><a href="/" title="Return to the homepage">Home</a></li>
-        <li><a href="/mission/" title="Learn about our mission and values">Mission</a></li>
-        <li><a href="/services/" title="Explore our services and solutions">Services</a></li>
-        <li><a href="/blog/" title="Read our latest posts">Blog</a></li>
-        <li><a href="/about/" title="Get to know our team and company">About</a></li>
-        <li><a href="/contact/" title="Get in touch with us">Contact</a></li>
+        <li><a href="/" title="Return to the homepage" aria-current="{{ if eq .RelPermalink "/" }}page{{ end }}">Home</a></li>
+        <li><a href="/mission/" title="Learn about our mission and values" aria-current="{{ if eq .RelPermalink "/mission/" }}page{{ end }}">Mission</a></li>
+        <li><a href="/services/" title="Explore our services and solutions" aria-current="{{ if eq .RelPermalink "/services/" }}page{{ end }}">Services</a></li>
+        <li><a href="/blog/" title="Read our latest posts" aria-current="{{ if eq .RelPermalink "/blog/" }}page{{ end }}">Blog</a></li>
+        <li><a href="/about/" title="Get to know our team and company" aria-current="{{ if eq .RelPermalink "/about/" }}page{{ end }}">About</a></li>
+        <li><a href="/contact/" title="Get in touch with us" aria-current="{{ if eq .RelPermalink "/contact/" }}page{{ end }}">Contact</a></li>
     </ul>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const scrollTopBtn = document.getElementById('scroll-top');
-            
-            // Show/hide button based on scroll position
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 200) {
-                    scrollTopBtn.style.display = 'flex';
-                } else {
-                    scrollTopBtn.style.display = 'none';
-                }
-            });
-            
-            // Scroll to top when button is clicked
-            scrollTopBtn.addEventListener('click', function() {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-        });
-    </script>
 </nav>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const scrollTopBtn = document.getElementById('scroll-top');
+    const navToggle = document.querySelector('.nav-toggle-label');
+    const mainNav = document.getElementById('main-nav');
+    const themeToggle = document.getElementById('theme-toggle');
+    
+    // Show/hide button based on scroll position
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 200) {
+            scrollTopBtn.style.display = 'flex';
+        } else {
+            scrollTopBtn.style.display = 'none';
+        }
+    });
+    
+    // Scroll to top when button is clicked
+    scrollTopBtn.addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
+    // Handle menu toggle
+    navToggle.addEventListener('click', function() {
+        const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+        navToggle.setAttribute('aria-expanded', !isExpanded);
+        mainNav.classList.toggle('nav-open');
+    });
+
+    // Handle theme toggle
+    themeToggle.addEventListener('click', function() {
+        const isPressed = themeToggle.getAttribute('aria-pressed') === 'true';
+        themeToggle.setAttribute('aria-pressed', !isPressed);
+    });
+
+    // Handle keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && mainNav.classList.contains('nav-open')) {
+            navToggle.click();
+            navToggle.focus();
+        }
+    });
+});
+</script>
