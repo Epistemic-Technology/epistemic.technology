@@ -26,6 +26,12 @@ server {
         add_header Cache-Control "public, no-transform";
     }
 
+    # Cache fonts for 1 year
+    location ~* \.(woff|woff2|ttf|otf|eot)$ {
+        expires 365d;
+        add_header Cache-Control "public, no-transform";
+    }
+
     # Cache CSS and JS for 1 day
     location ~* \.(css|js)$ {
         expires 1d;
