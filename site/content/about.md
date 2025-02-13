@@ -1,5 +1,7 @@
 ---
 title: "About"
+description: "About Epistemic Technology"
+keywords: "Epistemic Technology, Mike Thicke, AI consulting, artificial intelligence education, responsible AI development"
 date: 2025-02-04
 draft: false
 ---

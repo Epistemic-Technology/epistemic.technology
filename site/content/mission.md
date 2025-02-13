@@ -1,5 +1,7 @@
 ---
 title: "Mission"
+description: "Our mission is to assist with the adoption of artificial intelligence and other emerging technologies in a thoughtful way."
+keywords: "AI consulting, artificial intelligence education, responsible AI development"
 date: 2025-02-04
 draft: false
 ---

@@ -1,5 +1,7 @@
 ---
 title: "Services"
+description: "Services offered by Epistemic Technology"
+keywords: "AI consulting, artificial intelligence education, responsible AI development"
 date: 2025-02-04
 draft: false
 ---
