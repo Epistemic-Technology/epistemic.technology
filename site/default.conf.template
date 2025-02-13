@@ -2,11 +2,12 @@ server {
     listen       ${PORT};
     listen  [::]:${PORT};
     server_name  localhost;
+    
+    root   /usr/share/nginx/html;
 
     #access_log  /var/log/nginx/host.access.log  main;
 
     location / {
-        root   /usr/share/nginx/html;
         index  index.html index.htm;
     }
 
