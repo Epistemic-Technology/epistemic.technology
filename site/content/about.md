@@ -14,7 +14,7 @@ draft: false
 Epistemic Technology was founded in 2025 by Mike Thicke. Mike is a software developer and philosopher of science currently based in Kingston, New York. 
 
 <div class="img-right headshot">
-    <img src="/images/mike-headshot.png" alt="Mike Thicke, Founder" />
+    <img src="/images/mike-headshot.webp" alt="Mike Thicke, Founder" />
 </div>
 
 Mike has a PhD in History and Philosophy of Science and Technology from the University of Toronto (2016). His dissertation examined attempts by philosophers to model scientific activities using tools and analogies from economics. He has taught college courses in history and philosophy of science, economics and the history of economic thought, writing, and literature. His publications include:
