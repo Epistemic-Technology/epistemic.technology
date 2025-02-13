@@ -19,27 +19,23 @@ server {
         root   /usr/share/nginx/html;
     }
 
-    # proxy the PHP scripts to Apache listening on 127.0.0.1:80
-    #
-    #location ~ \.php$ {
-    #    proxy_pass   http://127.0.0.1;
-    #}
+    # Cache images for 1 month
+    location ~* \.(jpg|jpeg|png|gif|ico|webp|svg)$ {
+        expires 30d;
+        add_header Cache-Control "public, no-transform";
+    }
 
-    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
-    #
-    #location ~ \.php$ {
-    #    root           html;
-    #    fastcgi_pass   127.0.0.1:9000;
-    #    fastcgi_index  index.php;
-    #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
-    #    include        fastcgi_params;
-    #}
+    # Cache CSS and JS for 1 day
+    location ~* \.(css|js)$ {
+        expires 1d;
+        add_header Cache-Control "public, no-transform";
+    }
 
-    # deny access to .htaccess files, if Apache's document root
-    # concurs with nginx's one
-    #
-    #location ~ /\.ht {
-    #    deny  all;
-    #}
+    # No cache for HTML and data files
+    location ~* \.(html|json|xml)$ {
+        add_header Cache-Control "no-cache, no-store, must-revalidate";
+        add_header Pragma "no-cache";
+        add_header Expires 0;
+    }
 }
 
