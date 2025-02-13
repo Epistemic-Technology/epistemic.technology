@@ -845,11 +845,17 @@ a.read-more:hover {
  * Blog Callout Styles
  */
 #blog-callout {
-    max-width: var(--width-narrow);
-    padding: 0.5rem;
+    width: 100%;
+    background-color: var(--color-bg);
+    padding: 0.5rem 0;
     text-align: center;
     border-top: 2px solid var(--color-border);
     border-bottom: 2px solid var(--color-border);
+}
+
+#blog-callout .content {
+    max-width: var(--width-narrow);
+    margin: 0 auto;
 }
 
 #blog-callout p {
