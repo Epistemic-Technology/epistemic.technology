@@ -528,6 +528,10 @@ a.read-more:hover {
     #hero-content h3 {
         font-size: 1.1rem;
     }
+
+    .nav-logo, #scroll-top, #theme-toggle {
+        display: none;
+    }
 }
 
 /**
@@ -647,66 +651,40 @@ a.read-more:hover {
 .nav-toggle-label {
     display: none;
     cursor: pointer;
-    padding: 0.5rem;
-    width: 40px;
-    height: 40px;
+    padding: 1rem;
+    width: 96px;
+    height: 96px;
     position: fixed;
-    top: 16px;
-    right: 16px;
+    top: 24px;
+    right: 24px;
     z-index: 1000;
     background-color: var(--color-bg);
+    border-width: 0;
+    align-items: center;
+    justify-content: center;
     border-radius: 50%;
 }
 
-.nav-toggle-label::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 48px;
-    height: 48px;
-    background-color: var(--color-bg);
-    opacity: 0.8;
-    border-radius: 50%;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    z-index: -1;
+.nav-toggle-label svg {
+    width: 64px;
+    height: 64px;
+    color: var(--color-text);
 }
 
-.nav-toggle-label span {
+.nav-toggle-label .close-icon {
+    display: none;
+}
+
+.nav-toggle-label[aria-expanded="true"] .burger-icon {
+    display: none;
+}
+
+.nav-toggle-label[aria-expanded="true"] .close-icon {
     display: block;
-    width: 24px;
-    min-height: 2px;
-    background-color: var(--color-text);
-    margin: 5px auto;
-    transition: all 0.3s ease-in-out;
-    transform-origin: center;
-    position: relative;
 }
 
-.nav-toggle-label span::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: inherit;
-}
-
+/* Update mobile menu styles */
 @media (max-width: 768px) {
-    .fixed-elements {
-        display: none;
-    }
-
-    .nav-toggle-label {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-
     .main-nav {
         position: fixed;
         top: 0;
@@ -717,6 +695,7 @@ a.read-more:hover {
         transform: translateX(100%);
         transition: transform 0.3s ease-in-out;
         z-index: 999;
+        pointer-events: auto; /* Enable pointer events */
     }
 
     .nav-links {
@@ -726,29 +705,33 @@ a.read-more:hover {
         gap: 2rem;
         margin: 0;
         padding: 0;
+        pointer-events: auto; /* Enable pointer events */
     }
 
-    .nav-links a {
-        font-size: 1.5rem;
-        text-align: center;
-        color: var(--color-text);
-    }
-
-    /* Hamburger menu animation */
-    .nav-toggle:checked ~ .main-nav {
+    /* Show menu when nav-toggle is checked */
+    .nav-toggle:checked ~ .main-nav,
+    .main-nav.nav-open {
         transform: translateX(0);
     }
 
-    .nav-toggle:checked ~ .nav-toggle-label span:nth-child(1)::after {
-        transform: translateY(7px) rotate(45deg);
+    .nav-toggle-label {
+        display: flex;
     }
 
-    .nav-toggle:checked ~ .nav-toggle-label span:nth-child(2)::after {
+    /* Update hamburger animation */
+    .nav-toggle:checked ~ .nav-toggle-label span:nth-child(1),
+    .nav-open ~ .nav-toggle-label span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .nav-toggle:checked ~ .nav-toggle-label span:nth-child(2),
+    .nav-open ~ .nav-toggle-label span:nth-child(2) {
         opacity: 0;
     }
 
-    .nav-toggle:checked ~ .nav-toggle-label span:nth-child(3)::after {
-        transform: translateY(-7px) rotate(-45deg);
+    .nav-toggle:checked ~ .nav-toggle-label span:nth-child(3),
+    .nav-open ~ .nav-toggle-label span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
     }
 }
 
@@ -866,7 +849,31 @@ a.read-more:hover {
 
 @media (max-width: 768px) {
     #blog-callout {
+        position: relative;
+        top: 0;
+        width: 100%;
+        padding: 0.25rem 5rem;
+        margin-bottom: 1rem;
+        border-top: none;
+        border-bottom: none;
+    }
+
+    #blog-callout .content {
+        padding: 0 1rem;
+    }
+
+    #blog-callout p {
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+
+    #blog-callout .latest-post-date {
         display: none;
+    }
+
+    .fixed-elements {
+        max-height: 0;
+        padding: 0;
     }
 }
 
