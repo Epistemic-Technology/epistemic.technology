@@ -216,19 +216,19 @@ main {
 }
 
 #theme-toggle .sun-icon {
-    display: block;
+    display: none;
 }
 
 #theme-toggle .moon-icon {
-    display: none;
+    display: block;
 }
 
 [data-theme="dark"] #theme-toggle .sun-icon {
-    display: none;
+    display: block;
 }
 
 [data-theme="dark"] #theme-toggle .moon-icon {
-    display: block;
+    display: none;
 }
 
 /**
@@ -652,8 +652,8 @@ a.read-more:hover {
     display: none;
     cursor: pointer;
     padding: 1rem;
-    width: 96px;
-    height: 96px;
+    width: 64px;
+    height: 64px;
     position: fixed;
     top: 24px;
     right: 24px;
@@ -666,8 +666,8 @@ a.read-more:hover {
 }
 
 .nav-toggle-label svg {
-    width: 64px;
-    height: 64px;
+    width: 32px;
+    height: 32px;
     color: var(--color-text);
 }
 
@@ -852,7 +852,7 @@ a.read-more:hover {
         position: relative;
         top: 0;
         width: 100%;
-        padding: 0.25rem 5rem;
+        padding: 0.25rem 4rem;
         margin-bottom: 1rem;
         border-top: none;
         border-bottom: none;
