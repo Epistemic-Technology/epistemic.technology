@@ -41,6 +41,7 @@
          url('/fonts/MartianMono-VariableFont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
@@ -48,6 +49,7 @@
   src: url('/fonts/RobotoFlex-VariableFont.woff') format('woff');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 /**
@@ -58,7 +60,7 @@
 }
   
 body {
-  font-family: 'RobotoFlex';
+  font-family: 'RobotoFlex', Roboto, sans-serif;
   font-size: 20px;
   color: var(--color-text);
   background-color: var(--color-bg);
@@ -77,7 +79,7 @@ a:hover {
 }
 
 h1 {
-  font-family: 'MartainMono';
+  font-family: 'MartainMono', Courier New, monospace;
   text-transform: uppercase;
   margin-bottom: 2rem;
 }
