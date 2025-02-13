@@ -1,7 +1,7 @@
 ---
 title: "Why Epistemic Technology?"
 date: 2025-02-12
-draft: true
+draft: false
 ---
 
 Over the next 30 years, I expect artificial intelligence to revolutionize our work and lives. For those like me, working in software development or knowledge-based fields, it is already beginning to do so. How will our work and lives change? I don't know and I don't think anyone knows. But I want to do my utmost to be in a position where I can adapt to and prosper within whatever world the future might bring. Epistemic Technology is my attempt to do that.

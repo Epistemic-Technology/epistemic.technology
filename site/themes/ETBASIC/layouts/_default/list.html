@@ -1,8 +1,22 @@
 {{ define "main" }}
-  <h1>{{ .Title }}</h1>
-  {{ .Content }}
-  {{ range .Pages }}
-    <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
-    {{ .Summary }}
-  {{ end }}
+  <div class="blog-list">
+    <h1>{{ .Title }}</h1>
+    {{ .Content }}
+    <div class="post-list">
+      {{ range .Pages.ByDate.Reverse }}
+        <article class="post-summary">
+          <h2 class="post-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+          <div class="post-meta">
+            <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
+          </div>
+          <div class="post-summary-content">
+            {{ .Summary }}
+          </div>
+          <div class="read-more">
+            <a href="{{ .RelPermalink }}">Read more →</a>
+          </div>
+        </article>
+      {{ end }}
+    </div>
+  </div>
 {{ end }}

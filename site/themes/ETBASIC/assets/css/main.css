@@ -91,7 +91,7 @@ p {
 } 
 
 main {
-    padding: 2rem 0;
+    padding: 1rem 0;
 }
 
 /**
@@ -366,7 +366,7 @@ main {
 /**
  * Utility Classes
  */
-.read-more {
+a.read-more {
     display: inline-block;
     color: var(--color-primary);
     text-decoration: none;
@@ -374,11 +374,11 @@ main {
     transition: color 0.2s ease;
 }
 
-.read-more::after {
+a.read-more::after {
     content: " →";
 }
 
-.read-more:hover {
+a.read-more:hover {
     color: var(--color-text-muted);
 }
 
@@ -773,4 +773,91 @@ main {
 
 .social-links svg * {
     fill: currentColor;
+}
+
+/**
+ * Blog List Styles
+ */
+.blog-list {
+    max-width: var(--width-narrow);
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.post-list {
+    margin-top: 3rem;
+}
+
+.post-summary {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--color-text-muted);
+}
+
+.post-summary:last-child {
+    border-bottom: none;
+}
+
+.post-title {
+    margin: 0 0 1rem 0;
+    font-family: 'MartainMono';
+}
+
+.post-title a {
+    color: var(--color-text);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.post-title a:hover {
+    color: var(--color-primary);
+}
+
+.post-meta {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    margin-bottom: 1rem;
+}
+
+.post-summary-content {
+    margin: 1rem 0;
+}
+
+.read-more {
+    margin-top: 1rem;
+}
+
+.read-more a {
+    display: inline-block;
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.read-more a:hover {
+    color: var(--color-text-muted);
+}
+
+/**
+ * Blog Callout Styles
+ */
+#blog-callout {
+    max-width: var(--width-narrow);
+    padding: 0.5rem;
+    text-align: center;
+    border-top: 2px solid var(--color-border);
+    border-bottom: 2px solid var(--color-border);
+}
+
+#blog-callout p {
+    margin: 0;
+    padding: 0.5rem 0;
+    color: var(--color-text);
+}
+
+@media (max-width: 768px) {
+    #blog-callout {
+        display: none;
+    }
 }

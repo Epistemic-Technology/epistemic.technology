@@ -1,0 +1,5 @@
+{{- $pages := where .Site.RegularPages "Section" "blog" -}}
+{{- $latestPost := index ($pages.ByDate.Reverse) 0 -}}
+{{- if $latestPost -}}
+<a href="{{ $latestPost.RelPermalink }}" class="latest-blog-link">{{ $latestPost.Title }}</a> <span class="latest-post-date">[{{ $latestPost.Date.Format "January 2, 2006" }}]</span>
+{{- end -}} 

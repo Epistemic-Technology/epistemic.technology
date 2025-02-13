@@ -1,4 +1,9 @@
 {{ define "main" }}
+    <section id="blog-callout">
+        <div class="wide">
+            Latest Blog Post: {{ partial "latest-blog.html" . }}
+        </div>
+    </section>
     <section id="hero" class="wide">
         <div class="logo logo-hero">
             {{ partial "logo.html" . }}
