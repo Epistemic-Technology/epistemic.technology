@@ -1020,6 +1020,7 @@ footer {
     color: var(--color-text);
     margin-bottom: 0.5rem;
     line-height: 1.5;
+    padding-top: 0;
 }
 
 .license-footer a {
