@@ -3,16 +3,16 @@
  */
 :root {
     /* Light mode colors */
-    --color-primary: hsl(93, 87%, 25%);
+    --color-primary: hsl(93, 87%, 22%);
     --color-bg: hsl(0, 0%, 100%);
-    --color-text: hsl(0, 0%, 10%);
-    --color-text-muted: hsl(0, 0%, 45%);
-    --color-border: hsl(0, 0%, 10%);
+    --color-text: hsl(0, 0%, 8%);
+    --color-text-muted: hsl(0, 0%, 35%);
+    --color-border: hsl(0, 0%, 8%);
 
     /* Logo colors for light mode */
-    --logo-primary: hsl(0, 0%, 10%);    
-    --logo-secondary: hsl(0, 0%, 40%);
-    --logo-highlight: hsl(93, 87%, 25%);
+    --logo-primary: hsl(0, 0%, 8%);    
+    --logo-secondary: hsl(0, 0%, 35%);
+    --logo-highlight: hsl(93, 87%, 22%);
 
     --width-wide: 1200px;
     --width-narrow: 800px;
@@ -20,16 +20,16 @@
 }
 
 [data-theme="dark"] {
-    --color-primary: hsl(93, 87%, 39%);
-    --color-bg: hsl(0, 0%, 10%);
-    --color-text: hsl(0, 0%, 90%);
-    --color-text-muted: hsl(0, 0%, 60%);
-    --color-border: hsl(0, 0%, 25%);
+    --color-primary: hsl(93, 87%, 45%);
+    --color-bg: hsl(0, 0%, 8%);
+    --color-text: hsl(0, 0%, 95%);
+    --color-text-muted: hsl(0, 0%, 70%);
+    --color-border: hsl(0, 0%, 30%);
 
     /* Logo colors for dark mode */
-    --logo-primary: hsl(0, 0%, 90%);
-    --logo-secondary: hsl(0, 0%, 60%);
-    --logo-highlight: hsl(93, 87%, 39%);
+    --logo-primary: hsl(0, 0%, 95%);
+    --logo-secondary: hsl(0, 0%, 70%);
+    --logo-highlight: hsl(93, 87%, 45%);
 }
 
 /**
