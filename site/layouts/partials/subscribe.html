@@ -1,0 +1,171 @@
+<form id="subscribe-form" onsubmit="handleSubscribe(event)" method="POST" data-endpoint="{{ .Site.Params.subscribeSubmitEndpoint }}" class="subscribe-form">
+    <div class="subscribe-container">
+        <input type="email" id="subscribe-email" name="email" placeholder="Enter your email" required>
+        <button type="submit">Subscribe</button>
+        <a href="/index.xml" class="rss-link" title="RSS Feed">
+            {{ readFile "assets/images/rss.svg" | safeHTML }}
+        </a>
+    </div>
+</form>
+
+<div id="subscribe-result" class="subscribe-result hidden"></div>
+
+<script>
+    async function handleSubscribe(event) {
+        event.preventDefault();
+        
+        const resultDiv = document.getElementById('subscribe-result');
+        resultDiv.classList.remove('hidden', 'success', 'error');
+        resultDiv.textContent = 'Subscribing...';
+        
+        try {
+            const formData = {
+                email: document.getElementById('subscribe-email').value
+            };
+            
+            const formElement = document.getElementById('subscribe-form');
+            const endpoint = formElement.dataset.endpoint;
+            
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+            
+            const data = await response.json();
+            if (data.success) {
+                resultDiv.textContent = 'Successfully subscribed!';
+                resultDiv.classList.add('success');
+                event.target.reset();
+            } else {
+                resultDiv.textContent = 'Error: ' + data.message;
+                resultDiv.classList.add('error');
+            }
+        } catch (error) {
+            resultDiv.textContent = 'Error subscribing. Please try again later.';
+            resultDiv.classList.add('error');
+            console.error('Error subscribing:', error);
+        }
+    }
+</script>
+
+<style>
+    .subscribe-form {
+        max-width: var(--width-narrow);
+        margin: 0 auto;
+    }
+
+    .subscribe-container {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+    }
+
+    .subscribe-form input[type="email"] {
+        flex: 1;
+        padding: 0.5rem 0.75rem;
+        border: 2px solid var(--color-border);
+        border-radius: 0.5rem;
+        background-color: var(--color-bg);
+        color: var(--color-text);
+        font-family: 'RobotoFlex', sans-serif;
+        font-size: 1rem;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        min-width: 0;
+    }
+
+    .subscribe-form input[type="email"]:focus {
+        outline: none;
+        border-color: var(--color-primary);
+        box-shadow: 0 0 0 2px rgba(68, 145, 7, 0.1);
+    }
+
+    .subscribe-form input[type="email"]:hover {
+        border-color: var(--color-text-muted);
+    }
+
+    .subscribe-form button {
+        background-color: var(--color-primary);
+        color: var(--color-bg);
+        border: none;
+        border-radius: 0.5rem;
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.2s ease, transform 0.2s ease;
+        white-space: nowrap;
+    }
+
+    .subscribe-form button:hover {
+        background-color: var(--color-text-muted);
+        transform: translateY(-1px);
+    }
+
+    .subscribe-form button:active {
+        transform: translateY(0);
+    }
+
+    .rss-link {
+        display: flex;
+        align-items: center;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        transition: background-color 0.2s ease;
+    }
+
+    .rss-link:hover {
+        background-color: var(--color-text-muted);
+    }
+
+    .rss-link svg {
+        width: 40px;
+        height: 40px;
+        padding: 2px;
+        fill: var(--color-primary);
+        background-color: var(--color-bg);
+    }
+
+    .subscribe-result {
+        margin-top: 0.5rem;
+        padding: 0 0.5rem;
+        border-radius: 4px;
+        font-size: 0.9rem;
+    }
+
+    .subscribe-result.hidden {
+        display: none;
+    }
+
+    .subscribe-result.success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+
+    .subscribe-result.error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+
+    @media (max-width: 768px) {
+        .subscribe-container {
+            flex-wrap: wrap;
+        }
+        
+        .subscribe-form input[type="email"] {
+            width: 100%;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .subscribe-form input[type="email"],
+        .subscribe-form button,
+        .rss-link {
+            transition: none;
+        }
+    }
+</style> 

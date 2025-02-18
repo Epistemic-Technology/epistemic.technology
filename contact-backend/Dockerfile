@@ -1,7 +1,6 @@
 FROM golang:latest AS builder
 WORKDIR /app
 COPY . .
-# Create a fully static binary
 RUN CGO_ENABLED=0 GOOS=linux go build -a -ldflags '-extldflags "-static"' -o contact-backend .
 
 FROM scratch

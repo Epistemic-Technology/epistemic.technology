@@ -1,0 +1,112 @@
+<div id="confirmation-container" class="narrow">
+    <div id="confirming-state" class="confirmation-state">
+        <div class="spinner"></div>
+        <h2>Confirming subscription...</h2>
+    </div>
+
+    <div id="success-state" class="confirmation-state" style="display: none;">
+        <h2>Subscription confirmed!</h2>
+        <p>Thank you for subscribing to our blog. You'll receive updates about new posts and announcements.</p>
+    </div>
+
+    <div id="error-state" class="confirmation-state" style="display: none;">
+        <h2>Subscription Error</h2>
+        <p>We encountered an error while confirming your subscription. Please contact <a href="mailto:support@epistemic.technology">support@epistemic.technology</a> for assistance.</p>
+    </div>
+</div>
+
+<style>
+.confirmation-state {
+    text-align: center;
+    padding: 2rem;
+    margin: 2rem auto;
+    border: 2px solid var(--color-border);
+    border-radius: 0.75rem;
+    background-color: var(--color-bg);
+}
+
+.confirmation-state h2 {
+    font-family: 'MartainMono', monospace;
+    color: var(--color-text);
+    margin-bottom: 1rem;
+}
+
+.confirmation-state p {
+    color: var(--color-text-muted);
+    line-height: 1.5;
+}
+
+.confirmation-state a {
+    color: var(--color-primary);
+    text-decoration: underline;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto 1rem;
+    border: 3px solid var(--color-text-muted);
+    border-radius: 50%;
+    border-top-color: var(--color-primary);
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .spinner {
+        animation: none;
+        border: 3px solid var(--color-primary);
+    }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+    const email = urlParams.get('email');
+
+    if (!token || !email) {
+        showError();
+        return;
+    }
+
+    confirmSubscription(token, email);
+});
+
+async function confirmSubscription(token, email) {
+    try {
+        const response = await fetch('{{ .Site.Params.subscribeConfirmEndpoint }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ token, email })
+        });
+
+        if (response.ok) {
+            showSuccess();
+        } else {
+            showError();
+        }
+    } catch (error) {
+        console.error('Confirmation error:', error);
+        showError();
+    }
+}
+
+function showSuccess() {
+    document.getElementById('confirming-state').style.display = 'none';
+    document.getElementById('success-state').style.display = 'block';
+    document.getElementById('error-state').style.display = 'none';
+}
+
+function showError() {
+    document.getElementById('confirming-state').style.display = 'none';
+    document.getElementById('success-state').style.display = 'none';
+    document.getElementById('error-state').style.display = 'block';
+}
+</script>

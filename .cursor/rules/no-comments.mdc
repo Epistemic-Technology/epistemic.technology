@@ -1,0 +1,10 @@
+---
+description: Stop AI from generating excessive comments
+globs: 
+---
+ Do not add comments to code except:
+
+ - When explictly told to do so
+ - When creating documentation for functions, structs, etc
+
+ When you do add a comment, make it brief.

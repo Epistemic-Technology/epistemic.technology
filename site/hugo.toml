@@ -12,3 +12,5 @@ theme = 'ETBASIC'
 
 [params]
   formSubmitEndpoint = "http://localhost:8080/" 
+  subscribeSubmitEndpoint = "http://localhost:8081/signup"
+  subscribeConfirmEndpoint = "http://localhost:8081/confirm"

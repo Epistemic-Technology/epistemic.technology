@@ -1,7 +1,11 @@
 {{ define "main" }}
-  <div class="blog-list">
+  <section class="blog-list">
     <h1>{{ .Title }}</h1>
     {{ .Content }}
+    <div class="follow">
+      <p>Sign up to receive posts directly to your email, or follow our <a href="/index.xml">RSS feed</a>.</p>
+      {{ partial "subscribe.html" . }}
+    </div>
     <div class="post-list">
       {{ range .Pages.ByDate.Reverse }}
         <article class="post-summary">
@@ -18,5 +22,5 @@
         </article>
       {{ end }}
     </div>
-  </div>
+  </section>
 {{ end }}
