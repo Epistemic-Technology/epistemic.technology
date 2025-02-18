@@ -36,7 +36,7 @@
             
             const data = await response.json();
             if (data.success) {
-                resultDiv.textContent = 'Successfully subscribed!';
+                resultDiv.textContent = 'Please check your email to confirm your subscription.';
                 resultDiv.classList.add('success');
                 event.target.reset();
             } else {
