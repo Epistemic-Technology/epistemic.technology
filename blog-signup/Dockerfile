@@ -19,8 +19,6 @@ WORKDIR /app
 
 COPY --from=builder /app/blog-signup .
 
-VOLUME /app/data
-
 EXPOSE 8080
 
 CMD ["./blog-signup"]
