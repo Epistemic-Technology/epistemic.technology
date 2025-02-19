@@ -177,11 +177,15 @@ func handleSignup(w http.ResponseWriter, r *http.Request, db *sql.DB, rl *RateLi
 		message := sgmail.NewSingleEmail(from, subject, to, plainTextContent, htmlContent)
 		message.ReplyTo = sgmail.NewEmail("Epistemic Technology", os.Getenv("SUPPORT_EMAIL"))
 		client := sendgrid.NewSendClient(os.Getenv("SENDGRID_API_KEY"))
-		_, err = client.Send(message)
+		confirmationResponse, err := client.Send(message)
 		if err != nil {
 			log.Printf("Error sending confirmation email: %v", err)
 		}
-		log.Printf("Confirmation email sent to %s", req.Email)
+		if confirmationResponse.StatusCode >= 400 {
+			log.Printf("Confirmation email sent to %s with status code %d and body %s", req.Email, confirmationResponse.StatusCode, confirmationResponse.Body)
+		} else {
+			log.Printf("Confirmation email sent to %s", req.Email)
+		}
 	}()
 
 	response := Response{
