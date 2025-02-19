@@ -166,12 +166,13 @@ func handleSignup(w http.ResponseWriter, r *http.Request, db *sql.DB, rl *RateLi
 		to := sgmail.NewEmail("", req.Email)
 		subject := "Confirm your subscription to Epistemic Technology"
 		confirmURL := fmt.Sprintf("%s/confirm/?token=%s&email=%s", os.Getenv("SITE_URL"), token, req.Email)
-		plainTextContent := fmt.Sprintf("Please confirm your subscription by clicking this link: %s\n\nIf you need assistance, please contact us at %s", confirmURL, os.Getenv("SUPPORT_EMAIL"))
+		plainTextContent := fmt.Sprintf("Please confirm your subscription to Epistemic Technology by clicking this link: %s\n\nIf you need assistance, please contact us at %s\n\nYour email will not be shared with anyone outside of Epistemic Technology and will not be used for marketing purposes.", confirmURL, os.Getenv("SUPPORT_EMAIL"))
 		htmlContent := fmt.Sprintf(`
-			<h2>Confirm your subscription</h2>
+			<h2>Confirm your subscription to Epistemic Technology</h2>
 			<p>Please click the link below to confirm your subscription to our blog:</p>
 			<p><a href="%s">Confirm Subscription</a></p>
 			<p>If you need assistance, please contact us at %s</p>
+			<p><em>Your email will not be shared with anyone outside of Epistemic Technology and will not be used for marketing purposes.</em></p>
 		`, confirmURL, os.Getenv("SUPPORT_EMAIL"))
 
 		message := sgmail.NewSingleEmail(from, subject, to, plainTextContent, htmlContent)
