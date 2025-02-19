@@ -6,6 +6,8 @@ services:
       context: ./site
       args:
         - HUGO_PARAMS_formSubmitEndpoint=http://localhost:8888/
+        - HUGO_PARAMS_subscribeConfirmEndpoint=http://localhost:8888/confirm
+        - HUGO_PARAMS_subscribeSubmitEndpoint=http://localhost:8888/signup
     ports:
       - "8080:80"
     environment:
