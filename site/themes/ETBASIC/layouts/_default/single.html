@@ -2,7 +2,13 @@
   <div class="narrow">
     <h1>{{ .Title }}</h1>
     {{ .TableOfContents }}
-  {{ .Content }}
+    {{ .Content }}
+    {{ if eq .Section "blog" }}
+      <div class="follow">
+        <p>Sign up to receive posts directly to your email, or follow our <a href="/index.xml">RSS feed</a>.</p>
+        {{ partial "subscribe.html" . }}
+      </div>
+    {{ end }}
   </div>
   {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
 {{ end }}
