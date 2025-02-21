@@ -70,12 +70,38 @@ body {
 
 a {
   color: var(--color-primary);
-  text-decoration: none;
-  transition: color 0.2s ease;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 0.1em;
+  transition: color 0.2s ease, text-decoration-thickness 0.2s ease;
 }
 
 a:hover {
   color: var(--color-text-muted);
+  text-decoration-thickness: 0.2em;
+}
+
+a:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+a:focus:not(:focus-visible) {
+  outline: none;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+/* Add reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  a {
+    transition: none;
+  }
 }
 
 h1 {
@@ -176,13 +202,63 @@ main {
     text-decoration: none;
     color: var(--color-text);
     font-weight: 500;
-    transition: color 0.2s ease;
     padding: 0.5rem 0;
+    position: relative;
+    transition: color 0.2s ease;
     pointer-events: auto;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--color-primary);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.2s ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a[aria-current="page"]::after,
+.nav-links a.current::after {
+    transform: scaleX(1);
+    transform-origin: left;
 }
 
 .nav-links a:hover {
     color: var(--color-text-muted);
+}
+
+.nav-links a:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 4px;
+    border-radius: 0.25rem;
+}
+
+.nav-links a:focus:not(:focus-visible) {
+    outline: none;
+}
+
+.nav-links a:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 4px;
+    border-radius: 0.25rem;
+}
+
+.nav-links a[aria-current="page"],
+.nav-links a.current {
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .nav-links a,
+    .nav-links a::after {
+        transition: none;
+    }
 }
 
 /**

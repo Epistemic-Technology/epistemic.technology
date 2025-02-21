@@ -42,12 +42,12 @@
 </div>
 <nav class="main-nav" id="main-nav" role="navigation" aria-label="Main navigation">
     <ul class="nav-links">
-        <li><a href="/" title="Return to the homepage" aria-current="{{ if eq .RelPermalink "/" }}page{{ end }}">Home</a></li>
-        <li><a href="/mission/" title="Learn about our mission and values" aria-current="{{ if eq .RelPermalink "/mission/" }}page{{ end }}">Mission</a></li>
-        <li><a href="/services/" title="Explore our services and solutions" aria-current="{{ if eq .RelPermalink "/services/" }}page{{ end }}">Services</a></li>
-        <li><a href="/blog/" title="Read our latest posts" aria-current="{{ if eq .RelPermalink "/blog/" }}page{{ end }}">Blog</a></li>
-        <li><a href="/about/" title="Get to know our team and company" aria-current="{{ if eq .RelPermalink "/about/" }}page{{ end }}">About</a></li>
-        <li><a href="/contact/" title="Get in touch with us" aria-current="{{ if eq .RelPermalink "/contact/" }}page{{ end }}">Contact</a></li>
+        <li><a href="/" title="Return to the homepage" aria-current="{{ if eq .page.RelPermalink "/" }}page{{ end }}" {{ if eq .page.RelPermalink "/" }}class="current"{{ end }}>Home</a></li>
+        <li><a href="/mission/" title="Learn about our mission and values" aria-current="{{ if eq .page.RelPermalink "/mission/" }}page{{ end }}" {{ if eq .page.RelPermalink "/mission/" }}class="current"{{ end }}>Mission</a></li>
+        <li><a href="/services/" title="Explore our services and solutions" aria-current="{{ if eq .page.RelPermalink "/services/" }}page{{ end }}" {{ if eq .page.RelPermalink "/services/" }}class="current"{{ end }}>Services</a></li>
+        <li><a href="/blog/" title="Read our latest posts" aria-current="{{ if eq .page.RelPermalink "/blog/" }}page{{ end }}" {{ if eq .page.RelPermalink "/blog/" }}class="current"{{ end }}>Blog</a></li>
+        <li><a href="/about/" title="Get to know our team and company" aria-current="{{ if eq .page.RelPermalink "/about/" }}page{{ end }}" {{ if eq .page.RelPermalink "/about/" }}class="current"{{ end }}>About</a></li>
+        <li><a href="/contact/" title="Get in touch with us" aria-current="{{ if eq .page.RelPermalink "/contact/" }}page{{ end }}" {{ if eq .page.RelPermalink "/contact/" }}class="current"{{ end }}>Contact</a></li>
     </ul>
 </nav>
 
