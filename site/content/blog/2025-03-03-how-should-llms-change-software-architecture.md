@@ -1,7 +1,7 @@
 ---
 title: "How should LLMs change software architecture?"
 date: 2025-03-03
-draft: true
+draft: false
 ---
 
 One of my favorite thinkers on programming is [Casey Muratori](https://caseymuratori.com/about), a low-level programmer, [educator](https://www.computerenhance.com/), and occasional [Youtuber](https://www.youtube.com/@MollyRocket). In ["The Only Unbreakable Law"](https://www.youtube.com/watch?v=5IUj1EZwpJY), he makes the argument that, inevitably, the structure of software reflects the structure of the organizations that produce it. For example, Microsoft Windows has five separate volume control widgets, not due to any design reason, but due to the organizational structure of the teams that worked on the operating system.
