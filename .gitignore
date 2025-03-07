@@ -29,3 +29,14 @@ sendgrid.env
 
 # macOS system files
 .DS_Store
+
+# Ignore built executables (files with no extension that are within the cmd directory or subdirectories)
+# Ignore executables (files with no extension) in cmd directories at any level
+**/cmd/**/*
+!**/cmd/**/*.*
+
+# Ignore database files
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+*.db
