@@ -1,10 +1,12 @@
 ---
 description: Stop AI from generating excessive comments
-globs: 
+globs: *.go, *.html, *.js, *.jsx, *.ts, *.tsx
 ---
  Do not add comments to code except:
 
- - When explictly told to do so
- - When creating documentation for functions, structs, etc
+ - When explictly told to do so by the prompt
+ - When documenting functions, packages, or structs
 
- When you do add a comment, make it brief.
+ THERE SHOULD BE NO COMMENTS WITHIN A FUNCTION BLOCK UNLESS THE PROMPT REQUESTS COMMENTS. THIS IS IMPORTANT.
+ 
+ Comments include inline comments, such as those starting with // and block comments such as those starting with /*. Just don't add comments unless prompted to. Seriously. Don't do it.

@@ -1,0 +1,9 @@
+---
+description: Rule for testing go
+globs: *.go
+---
+
+ When writing tests for go:
+
+ - Favor calling real APIs over creating mocks.
+ - Strongly avoid importing external testing packages. Just use the standard go testing functions.
