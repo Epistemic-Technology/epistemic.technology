@@ -2,7 +2,10 @@ package api
 
 import (
 	"encoding/json"
+	"fmt"
+	"log"
 	"net/http"
+	"os"
 
 	"github.com/Epistemic-Technology/epistemic.technology/chatbot-backend/internal/backend"
 	"github.com/Epistemic-Technology/epistemic.technology/chatbot-backend/internal/chatbot"
@@ -19,7 +22,19 @@ type ChatResponse struct {
 	Sources    []backend.Document `json:"sources"`
 }
 
-func HandleChat(w http.ResponseWriter, r *http.Request) {
+func StartAPI(bot *chatbot.ChatBot) {
+	http.HandleFunc("/chat", func(w http.ResponseWriter, r *http.Request) {
+		HandleChat(w, r, bot)
+	})
+
+	port := ":" + os.Getenv("PORT")
+	fmt.Printf("Server starting on port %s...\n", port)
+	if err := http.ListenAndServe(port, nil); err != nil {
+		log.Fatal(err)
+	}
+}
+
+func HandleChat(w http.ResponseWriter, r *http.Request, bot *chatbot.ChatBot) {
 	// Set CORS headers
 	if setCORSHeaders(w, r) {
 		return
@@ -29,13 +44,6 @@ func HandleChat(w http.ResponseWriter, r *http.Request) {
 	var req ChatRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		http.Error(w, "Invalid request format", http.StatusBadRequest)
-		return
-	}
-
-	// Get the chatbot from the context
-	bot, ok := r.Context().Value("chatbot").(*chatbot.ChatBot)
-	if !ok {
-		http.Error(w, "Chatbot not available", http.StatusInternalServerError)
 		return
 	}
 
