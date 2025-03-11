@@ -1,6 +1,11 @@
 # If you prefer the allow list template instead of the deny list, see community template:
 # https://github.com/github/gitignore/blob/main/community/Golang/Go.AllowList.gitignore
 #
+*
+!/**/
+!*.*
+!Dockerfile
+!Makefile
 # Binaries for programs and plugins
 *.exe
 *.exe~
@@ -30,10 +35,6 @@ sendgrid.env
 # macOS system files
 .DS_Store
 
-# Ignore built executables (files with no extension that are within the cmd directory or subdirectories)
-# Ignore executables (files with no extension) in cmd directories at any level
-**/cmd/**/*
-!**/cmd/**/*.*
 
 # Ignore database files
 *.sqlite
