@@ -159,12 +159,17 @@ func MakeHash(content string) []byte {
 
 func DocumentsFromChunks(chunks []Chunk, database *DB) ([]Document, error) {
 	documents := []Document{}
+	seenDocIDs := make(map[int]bool)
 	for _, chunk := range chunks {
+		if seenDocIDs[chunk.DocumentID] {
+			continue
+		}
 		newDoc, err := GetDocumentByID(database, chunk.DocumentID)
 		if err != nil {
 			return nil, fmt.Errorf("error getting document by ID: %w", err)
 		}
 		documents = append(documents, newDoc)
+		seenDocIDs[chunk.DocumentID] = true
 	}
 	return documents, nil
 }

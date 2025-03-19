@@ -9,10 +9,8 @@ import (
 	"github.com/Epistemic-Technology/epistemic.technology/chatbot-backend/internal/backend"
 	"github.com/Epistemic-Technology/epistemic.technology/chatbot-backend/internal/chatbot"
 	"github.com/joho/godotenv"
-	// imported as openai
 )
-
-func main() {
+	func main() {
 	err := godotenv.Load(".env")
 	if err != nil {
 		log.Println("Warning: Error loading .env file:", err)
