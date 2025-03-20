@@ -29,3 +29,19 @@ export interface UserInputProps {
   isLoading: boolean;
   autoFocus?: boolean;
 }
+
+export interface Buffer {
+  id: string;
+  name: string;
+  render: () => JSX.Element;
+  handleCommand?: (command: string) => Promise<void>;
+  onActivate?: () => void;
+  onDeactivate?: () => void;
+}
+
+export interface ChatBufferProps {
+  chatHistory?: TerminalMessageProps[];
+  isLoading?: boolean;
+  onSubmit?: (query: string) => Promise<void>;
+  apiUrl?: string;
+}

@@ -1,5 +1,6 @@
 import { Component, createSignal, createEffect, batch } from "solid-js";
 import { UserInputProps } from "../types";
+import LoadingSpinner from "./LoadingSpinner";
 
 const UserInput: Component<UserInputProps> = (props) => {
   const [inputValue, setInputValue] = createSignal("");
@@ -8,6 +9,17 @@ const UserInput: Component<UserInputProps> = (props) => {
 
   const handleSubmit = async (e: Event) => {
     e.preventDefault();
+    const userInput = (e.target as HTMLFormElement).querySelector(
+      ".user-input-container"
+    ) as HTMLInputElement;
+    // Set a timeout to scroll the input into view after 500ms
+    setTimeout(() => {
+      userInput.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+        inline: "nearest",
+      });
+    }, 100);
     const query = inputValue().trim();
     if (query && !props.isLoading) {
       setInputValue("");
@@ -16,6 +28,11 @@ const UserInput: Component<UserInputProps> = (props) => {
         await props.onSubmit(query);
       } finally {
         setFormSubmitted(true);
+        userInput.scrollIntoView({
+          behavior: "smooth",
+          block: "end",
+          inline: "nearest",
+        });
       }
     }
   };
@@ -38,23 +55,32 @@ const UserInput: Component<UserInputProps> = (props) => {
   return (
     <form onSubmit={handleSubmit} class="flex items-center">
       <span>&gt;&nbsp;</span>
-      <div class="relative flex-grow">
-        <input
-          type="text"
-          value={inputValue()}
-          onInput={(e) => setInputValue(e.currentTarget.value)}
-          disabled={props.isLoading}
-          class="w-full bg-transparent border-none focus:outline-none caret-transparent text-3xl"
-          autocomplete="off"
-          ref={inputRef}
-        />
-        <div
-          class="cursor-block"
-          style={{
-            left: `${inputValue().length}ch`,
-            display: props.isLoading ? "none" : "block",
-          }}
-        ></div>
+      <div class="relative flex-grow user-input-container">
+        {props.isLoading ? (
+          <div class="flex items-center">
+            <LoadingSpinner />
+            <span>Processing your request...</span>
+          </div>
+        ) : (
+          <>
+            <input
+              type="text"
+              value={inputValue()}
+              onInput={(e) => setInputValue(e.currentTarget.value)}
+              disabled={props.isLoading}
+              class="w-full bg-transparent border-none focus:outline-none caret-transparent text-3xl user-input"
+              autocomplete="off"
+              ref={inputRef}
+            />
+            <div
+              class="cursor-block"
+              style={{
+                left: `${inputValue().length}ch`,
+                display: props.isLoading ? "none" : "block",
+              }}
+            ></div>
+          </>
+        )}
       </div>
       <style>
         {`

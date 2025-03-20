@@ -1,96 +1,56 @@
-import type { Accessor, Component, Setter } from "solid-js";
+import type { Component } from "solid-js";
 import { createSignal } from "solid-js";
 import TerminalButton from "./components/TerminalButton";
 import TerminalDialog from "./components/TerminalDialog";
-import {
-  BotMessageProps,
-  TerminalMessageProps,
-  UserMessageProps,
-} from "./types";
+import { createChatBuffer } from "./components/ChatBuffer";
+import { Buffer } from "./types";
 
 const App: Component = () => {
   const [isDialogOpen, setIsDialogOpen] = createSignal(false);
-  const [apiUrl, setApiUrl] = createSignal(
-    import.meta.env.VITE_API_URL || "http://localhost:8181/chat"
-  );
-  const [chatHistory, setChatHistory] = createSignal<TerminalMessageProps[]>([
-    {
-      type: "bot",
-      content:
-        "Hello Professor\nWould you like to learn about Epistemic Technology?",
-    },
-  ]);
-  const [isLoading, setIsLoading] = createSignal(false);
+  const [buffers, setBuffers] = createSignal<Buffer[]>([]);
+  const [activeBufferId, setActiveBufferId] = createSignal<string>("");
+
+  // Create the chat buffer
+  const createChatBufferInstance = () => {
+    const chatBufferId = "chat";
+
+    // Create the buffer using the factory function
+    const chatBuffer = createChatBuffer({
+      id: chatBufferId,
+      name: "Chat",
+    });
+
+    setBuffers([chatBuffer]);
+    setActiveBufferId(chatBufferId);
+
+    return chatBuffer;
+  };
+
+  // Get the active buffer
+  const getActiveBuffer = () => {
+    let currentBuffer = buffers().find((b) => b.id === activeBufferId());
+
+    // If no active buffer exists, create the chat buffer
+    if (!currentBuffer) {
+      currentBuffer = createChatBufferInstance();
+    }
+
+    return currentBuffer;
+  };
 
   const openDialog = () => setIsDialogOpen(true);
   const closeDialog = () => setIsDialogOpen(false);
 
-  const handleChatSubmit = async (query: string) => {
-    setIsLoading(true);
+  // Execute a command in the active buffer
+  const executeCommand = async (command: string) => {
+    const activeBuffer = getActiveBuffer();
+    if (activeBuffer && activeBuffer.handleCommand) {
+      await activeBuffer.handleCommand(command);
 
-    const newMessage: UserMessageProps = {
-      type: "user",
-      content: query,
-    };
-    setChatHistory([...chatHistory(), newMessage]);
-
-    if (query.startsWith(":")) {
-      switch (query.slice(1)) {
-        case "help":
-          helpCommand(chatHistory, setChatHistory);
-          break;
-        case "clear":
-          setChatHistory([]);
-          break;
-        case "exit":
-          setIsDialogOpen(false);
-          break;
+      // Special case for exit command
+      if (command === ":exit") {
+        closeDialog();
       }
-      setIsLoading(false);
-      return;
-    }
-
-    try {
-      const historyString = JSON.stringify(
-        chatHistory().map((msg) => ({
-          content: msg.content,
-        }))
-      );
-
-      const response = await fetch(apiUrl(), {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          query: query,
-          history: historyString,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`API error: ${response.status}`);
-      }
-
-      const data = await response.json();
-
-      const responseMessage: BotMessageProps = {
-        type: "bot",
-        content: data.response,
-        sources: data.sources,
-      };
-
-      setChatHistory([...chatHistory(), responseMessage]);
-    } catch (error) {
-      console.error("Error sending message:", error);
-      const updatedHistory = [...chatHistory()];
-      updatedHistory[updatedHistory.length - 1] = {
-        ...updatedHistory[updatedHistory.length - 1],
-        content: "Error: Could not connect to the server.",
-      };
-      setChatHistory(updatedHistory);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -100,30 +60,11 @@ const App: Component = () => {
       <TerminalDialog
         isOpen={isDialogOpen()}
         onClose={closeDialog}
-        onSubmit={handleChatSubmit}
-        chatHistory={chatHistory()}
-        isLoading={isLoading()}
+        activeBuffer={getActiveBuffer()}
+        executeCommand={executeCommand}
       />
     </>
   );
 };
-
-function helpCommand(
-  chatHistory: Accessor<TerminalMessageProps[]>,
-  setChatHistory: Setter<TerminalMessageProps[]>
-) {
-  const helpText = `Available commands:
-  :help - Show this help
-  :clear - Clear the chat history
-  :exit - Exit the chat
-  `;
-  setChatHistory([
-    ...chatHistory(),
-    {
-      type: "bot",
-      content: helpText,
-    },
-  ]);
-}
 
 export default App;
