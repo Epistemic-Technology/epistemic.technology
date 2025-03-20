@@ -68,12 +68,12 @@ const UserInput: Component<UserInputProps> = (props) => {
               value={inputValue()}
               onInput={(e) => setInputValue(e.currentTarget.value)}
               disabled={props.isLoading}
-              class="w-full bg-transparent border-none focus:outline-none caret-transparent text-3xl user-input"
+              class="w-full bg-transparent border-none focus:outline-none caret-transparent !text-2xl user-input"
               autocomplete="off"
               ref={inputRef}
             />
             <div
-              class="cursor-block"
+              class="cursor-block text-2xl"
               style={{
                 left: `${inputValue().length}ch`,
                 display: props.isLoading ? "none" : "block",
@@ -87,8 +87,8 @@ const UserInput: Component<UserInputProps> = (props) => {
           .cursor-block {
             position: absolute;
             top: 0;
-            width: 0.8em;
-            height: 1.5em;
+            width: 0.6em;
+            height: 1.2em;
             background-color: currentColor;
             animation: blink 1s step-end infinite;
           }

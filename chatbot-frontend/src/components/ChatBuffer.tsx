@@ -132,7 +132,8 @@ export const createChatBuffer = (
 
   // Command handlers
   const helpCommand = () => {
-    const helpText = `Available commands:
+    const helpText = `
+    Available commands:
     :help - Show this help
     :about - About Epistemic Technology
     :contact - Contact information
