@@ -1,5 +1,5 @@
 import type { Component } from "solid-js";
-import { createSignal } from "solid-js";
+import { createSignal, JSX, onMount, onCleanup } from "solid-js";
 import TerminalButton from "./components/TerminalButton";
 import TerminalDialog from "./components/TerminalDialog";
 import { createChatBuffer } from "./components/ChatBuffer";
@@ -9,15 +9,16 @@ const App: Component = () => {
   const [isDialogOpen, setIsDialogOpen] = createSignal(false);
   const [buffers, setBuffers] = createSignal<Buffer[]>([]);
   const [activeBufferId, setActiveBufferId] = createSignal<string>("");
+  const [navbar, setNavbar] = createSignal<JSX.Element | null>(null);
 
-  // Create the chat buffer
   const createChatBufferInstance = () => {
     const chatBufferId = "chat";
 
-    // Create the buffer using the factory function
     const chatBuffer = createChatBuffer({
       id: chatBufferId,
       name: "Chat",
+      onExit: closeDialog,
+      setNavbar,
     });
 
     setBuffers([chatBuffer]);
@@ -26,11 +27,9 @@ const App: Component = () => {
     return chatBuffer;
   };
 
-  // Get the active buffer
   const getActiveBuffer = () => {
     let currentBuffer = buffers().find((b) => b.id === activeBufferId());
 
-    // If no active buffer exists, create the chat buffer
     if (!currentBuffer) {
       currentBuffer = createChatBufferInstance();
     }
@@ -41,28 +40,37 @@ const App: Component = () => {
   const openDialog = () => setIsDialogOpen(true);
   const closeDialog = () => setIsDialogOpen(false);
 
-  // Execute a command in the active buffer
-  const executeCommand = async (command: string) => {
-    const activeBuffer = getActiveBuffer();
-    if (activeBuffer && activeBuffer.handleCommand) {
-      await activeBuffer.handleCommand(command);
-
-      // Special case for exit command
-      if (command === ":exit") {
-        closeDialog();
-      }
+  const handleKeyDown = (event: KeyboardEvent) => {
+    if (
+      event.key === "/" &&
+      !isDialogOpen() &&
+      !(event.target instanceof HTMLInputElement) &&
+      !(event.target instanceof HTMLTextAreaElement)
+    ) {
+      event.preventDefault();
+      openDialog();
     }
   };
+
+  onMount(() => {
+    document.addEventListener("keydown", handleKeyDown);
+
+    onCleanup(() => {
+      document.removeEventListener("keydown", handleKeyDown);
+    });
+  });
 
   return (
     <>
       <TerminalButton onClick={openDialog} />
-      <TerminalDialog
-        isOpen={isDialogOpen()}
-        onClose={closeDialog}
-        activeBuffer={getActiveBuffer()}
-        executeCommand={executeCommand}
-      />
+      {isDialogOpen() && (
+        <TerminalDialog
+          isOpen={isDialogOpen()}
+          onClose={closeDialog}
+          activeBuffer={getActiveBuffer()}
+          navbar={navbar()}
+        />
+      )}
     </>
   );
 };

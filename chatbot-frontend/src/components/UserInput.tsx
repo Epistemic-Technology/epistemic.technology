@@ -5,21 +5,11 @@ import LoadingSpinner from "./LoadingSpinner";
 const UserInput: Component<UserInputProps> = (props) => {
   const [inputValue, setInputValue] = createSignal("");
   const [formSubmitted, setFormSubmitted] = createSignal(false);
+  const [isFocused, setIsFocused] = createSignal(false);
   let inputRef: HTMLInputElement | undefined;
 
   const handleSubmit = async (e: Event) => {
     e.preventDefault();
-    const userInput = (e.target as HTMLFormElement).querySelector(
-      ".user-input-container"
-    ) as HTMLInputElement;
-    // Set a timeout to scroll the input into view after 500ms
-    setTimeout(() => {
-      userInput.scrollIntoView({
-        behavior: "smooth",
-        block: "end",
-        inline: "nearest",
-      });
-    }, 100);
     const query = inputValue().trim();
     if (query && !props.isLoading) {
       setInputValue("");
@@ -28,16 +18,10 @@ const UserInput: Component<UserInputProps> = (props) => {
         await props.onSubmit(query);
       } finally {
         setFormSubmitted(true);
-        userInput.scrollIntoView({
-          behavior: "smooth",
-          block: "end",
-          inline: "nearest",
-        });
       }
     }
   };
 
-  // Focus management
   createEffect(() => {
     if (formSubmitted() && inputRef && !props.isLoading) {
       inputRef.focus();
@@ -45,7 +29,6 @@ const UserInput: Component<UserInputProps> = (props) => {
     }
   });
 
-  // Initial focus
   createEffect(() => {
     if (props.autoFocus && inputRef) {
       inputRef.focus();
@@ -67,6 +50,8 @@ const UserInput: Component<UserInputProps> = (props) => {
               type="text"
               value={inputValue()}
               onInput={(e) => setInputValue(e.currentTarget.value)}
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setIsFocused(false)}
               disabled={props.isLoading}
               class="w-full bg-transparent border-none focus:outline-none caret-transparent !text-2xl user-input"
               autocomplete="off"
@@ -76,7 +61,7 @@ const UserInput: Component<UserInputProps> = (props) => {
               class="cursor-block text-2xl"
               style={{
                 left: `${inputValue().length}ch`,
-                display: props.isLoading ? "none" : "block",
+                display: props.isLoading || !isFocused() ? "none" : "block",
               }}
             ></div>
           </>

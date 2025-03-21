@@ -12,6 +12,7 @@ export interface TerminalMessageProps {
 }
 
 export interface Source {
+  index?: number;
   Title: string;
   FilePath: string;
   Author: string;
@@ -34,7 +35,6 @@ export interface Buffer {
   id: string;
   name: string;
   render: () => JSX.Element;
-  handleCommand?: (command: string) => Promise<void>;
   onActivate?: () => void;
   onDeactivate?: () => void;
 }
@@ -42,6 +42,6 @@ export interface Buffer {
 export interface ChatBufferProps {
   chatHistory?: TerminalMessageProps[];
   isLoading?: boolean;
-  onSubmit?: (query: string) => Promise<void>;
   apiUrl?: string;
+  onExit?: () => void;
 }
