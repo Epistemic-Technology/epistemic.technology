@@ -46,6 +46,7 @@ func HandleChat(w http.ResponseWriter, r *http.Request, bot *chatbot.ChatBot) {
 		http.Error(w, "Invalid request format", http.StatusBadRequest)
 		return
 	}
+	log.Println("Received chat request: ", req.Query)
 
 	// Process the chat request
 	response, references, sources, err := chatbot.Chat(bot, 1, req.Query, req.History)
@@ -53,7 +54,7 @@ func HandleChat(w http.ResponseWriter, r *http.Request, bot *chatbot.ChatBot) {
 		http.Error(w, "Error processing chat: "+err.Error(), http.StatusInternalServerError)
 		return
 	}
-
+	log.Println("Response: ", response)
 	// Return the response
 	resp := ChatResponse{
 		Response:   response,
@@ -66,6 +67,7 @@ func HandleChat(w http.ResponseWriter, r *http.Request, bot *chatbot.ChatBot) {
 }
 
 func setCORSHeaders(w http.ResponseWriter, r *http.Request) bool {
+	log.Println("Setting CORS headers")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")

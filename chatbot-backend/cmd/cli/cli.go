@@ -136,7 +136,7 @@ func embedHugoDirectory(args []string) {
 			log.Fatalf("Error inserting document: %v", err)
 		}
 
-		chunks, err := backend.ChunkDocument(&doc, embeddingClient, user)
+		chunks, err := backend.ChunkDocument(&doc, embeddingClient, user, database)
 		if err != nil {
 			log.Fatalf("Error creating chunks: %v", err)
 		}
@@ -197,7 +197,7 @@ func embedHugoFile(args []string) {
 	// Create a user for embedding generation
 	user := &backend.User{ID: 1}
 
-	chunks, err := backend.ChunkDocument(&doc, embeddingClient, user)
+	chunks, err := backend.ChunkDocument(&doc, embeddingClient, user, database)
 	if err != nil {
 		log.Fatalf("Error creating chunks: %v", err)
 	}

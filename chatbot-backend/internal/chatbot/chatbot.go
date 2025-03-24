@@ -2,6 +2,7 @@ package chatbot
 
 import (
 	"fmt"
+	"log"
 	"strconv"
 
 	"github.com/Epistemic-Technology/epistemic.technology/chatbot-backend/internal/backend"
@@ -60,3 +61,39 @@ func buildUserQuery(query string, history string, chunks []backend.Chunk) string
 	finalQuery += "This is the user's query: " + query
 	return finalQuery
 }
+
+func EmbedHugoDirectory(c *ChatBot, directory string) error {
+	log.Println("Embedding Hugo directory: ", directory)
+	docs, err := backend.HugoDirectoryToDocuments(directory, true)
+	if err != nil {
+		return fmt.Errorf("failed to convert directory to documents: %w", err)
+	}
+	log.Println("Converted directory to documents: ", len(docs))
+	
+	user := &backend.User{ID: 1}
+
+	for i, doc := range docs {
+		log.Printf("Processing document %d/%d: %s", i+1, len(docs), doc.Title)
+
+		if err := backend.InsertDocument(c.db, &doc); err != nil {
+			return fmt.Errorf("failed to insert document: %v", err)
+		}
+
+		chunks, err := backend.ChunkDocument(&doc, c.embeddingClient, user, c.db)
+		if err != nil {
+			return fmt.Errorf("error creating chunks: %v", err)
+		}
+
+		log.Printf("Created %d chunks", len(chunks))
+
+		for j, chunk := range chunks {
+			chunk.DocumentID = doc.ID
+			if err := backend.InsertChunk(c.db, &chunk); err != nil {
+				return fmt.Errorf("error inserting chunk %d: %v", j, err)
+			}
+		}
+	}
+
+	return nil
+}
+

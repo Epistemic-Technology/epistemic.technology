@@ -38,7 +38,8 @@ func Init(db *DB) error {
 			author TEXT,
 			publication_date TEXT,
 			url TEXT,
-			file_path TEXT
+			file_path TEXT,
+			hash BLOB
 		);
 	`)
 	if err != nil {
@@ -73,10 +74,49 @@ func Init(db *DB) error {
 }
 
 func InsertDocument(db *DB, doc *Document) error {
+	// Calculate hash for the document if not already set
+	if doc.Hash == nil {
+		doc.Hash = MakeHash(doc.Content)
+	}
+
+	// Check if document already exists and has been processed
+	processed, err := DocumentHasBeenProcessed(db, doc.Hash)
+	if err != nil {
+		return fmt.Errorf("failed to check if document has been processed: %w", err)
+	}
+
+	// If document has been processed, just get its ID
+	if processed {
+		existingDoc, err := GetDocumentByHash(db, doc.Hash)
+		if err != nil {
+			return fmt.Errorf("failed to get existing document: %w", err)
+		}
+		// Update document ID to match existing document
+		doc.ID = existingDoc.ID
+		return nil
+	}
+
+	// Check if document exists but hasn't been fully processed
+	exists, err := DocumentHashExists(db, doc.Hash)
+	if err != nil {
+		return fmt.Errorf("failed to check document hash: %w", err)
+	}
+
+	if exists {
+		// Document exists but might not have chunks, get its ID
+		existingDoc, err := GetDocumentByHash(db, doc.Hash)
+		if err != nil {
+			return fmt.Errorf("failed to get existing document: %w", err)
+		}
+		doc.ID = existingDoc.ID
+		return nil
+	}
+
+	// If document doesn't exist, insert it
 	result, err := db.db.Exec(`
-		INSERT INTO documents (title, content, author, publication_date, url, file_path)
-		VALUES (?, ?, ?, ?, ?, ?)
-	`, doc.Title, doc.Content, doc.Author, doc.PublicationDate, doc.URL, doc.FilePath)
+		INSERT INTO documents (title, content, author, publication_date, url, file_path, hash)
+		VALUES (?, ?, ?, ?, ?, ?, ?)
+	`, doc.Title, doc.Content, doc.Author, doc.PublicationDate, doc.URL, doc.FilePath, doc.Hash)
 	if err != nil {
 		return fmt.Errorf("failed to insert document: %w", err)
 	}
@@ -91,11 +131,11 @@ func InsertDocument(db *DB, doc *Document) error {
 func GetDocumentByID(db *DB, id int) (Document, error) {
 	var doc Document
 	row := db.db.QueryRow(`
-		SELECT id, title, content, author, publication_date, url, file_path
+		SELECT id, title, content, author, publication_date, url, file_path, hash
 		FROM documents
 		WHERE id = ?
 	`, id)
-	err := row.Scan(&doc.ID, &doc.Title, &doc.Content, &doc.Author, &doc.PublicationDate, &doc.URL, &doc.FilePath)
+	err := row.Scan(&doc.ID, &doc.Title, &doc.Content, &doc.Author, &doc.PublicationDate, &doc.URL, &doc.FilePath, &doc.Hash)
 	if err != nil {
 		return Document{}, fmt.Errorf("failed to get document: %w", err)
 	}
@@ -105,7 +145,7 @@ func GetDocumentByID(db *DB, id int) (Document, error) {
 func GetAllDocuments(db *DB) ([]Document, error) {
 	docs := []Document{}
 	rows, err := db.db.Query(`
-		SELECT id, title, content, author, publication_date, url, file_path
+		SELECT id, title, content, author, publication_date, url, file_path, hash
 		FROM documents
 	`)
 	if err != nil {
@@ -115,7 +155,7 @@ func GetAllDocuments(db *DB) ([]Document, error) {
 
 	for rows.Next() {
 		var doc Document
-		err = rows.Scan(&doc.ID, &doc.Title, &doc.Content, &doc.Author, &doc.PublicationDate, &doc.URL, &doc.FilePath)
+		err = rows.Scan(&doc.ID, &doc.Title, &doc.Content, &doc.Author, &doc.PublicationDate, &doc.URL, &doc.FilePath, &doc.Hash)
 		if err != nil {
 			return nil, fmt.Errorf("failed to scan document: %w", err)
 		}
@@ -194,6 +234,7 @@ func GetDocumentChunks(db *DB, docID int) ([]Chunk, error) {
 }
 
 func InsertChunk(db *DB, chunk *Chunk) error {
+	// Insert the chunk into chunks table
 	result, err := db.db.Exec(`
 		INSERT INTO chunks (document_id, content, hash)
 		VALUES (?, ?, ?)
@@ -207,26 +248,29 @@ func InsertChunk(db *DB, chunk *Chunk) error {
 	if err != nil {
 		return fmt.Errorf("failed to get last insert ID: %w", err)
 	}
-
-	embeddingFloat := make([]float32, len(chunk.Embedding))
-	for i, v := range chunk.Embedding {
-		embeddingFloat[i] = float32(v)
-	}
-	serializedEmbedding, err := sqlite_vec.SerializeFloat32(embeddingFloat)
-	if err != nil {
-		return fmt.Errorf("failed to serialize embedding: %w", err)
-	}
-
-	_, err = db.db.Exec(`
-		INSERT INTO vec_chunks (id, embedding)
-		VALUES (?, ?)
-	`, lastID, serializedEmbedding)
-	if err != nil {
-		return fmt.Errorf("failed to insert vec_chunk: %w", err)
-	}
-
+	
 	// Update the chunk ID with the database ID
 	chunk.ID = int(lastID)
+
+	// Insert the embedding if we have one
+	if chunk.Embedding != nil {
+		embeddingFloat := make([]float32, len(chunk.Embedding))
+		for i, v := range chunk.Embedding {
+			embeddingFloat[i] = float32(v)
+		}
+		serializedEmbedding, err := sqlite_vec.SerializeFloat32(embeddingFloat)
+		if err != nil {
+			return fmt.Errorf("failed to serialize embedding: %w", err)
+		}
+
+		_, err = db.db.Exec(`
+			INSERT INTO vec_chunks (id, embedding)
+			VALUES (?, ?)
+		`, lastID, serializedEmbedding)
+		if err != nil {
+			return fmt.Errorf("failed to insert vec_chunk: %w", err)
+		}
+	}
 
 	return nil
 }
@@ -273,4 +317,69 @@ func SimilaritySearch(db *DB, embedding Embedding, limit int) ([]Chunk, error) {
 
 func Close(db *DB) error {
 	return db.db.Close()
+}
+
+// GetDocumentByHash retrieves a document by its content hash
+func GetDocumentByHash(db *DB, hash []byte) (Document, error) {
+	var doc Document
+	row := db.db.QueryRow(`
+		SELECT id, title, content, author, publication_date, url, file_path, hash
+		FROM documents
+		WHERE hash = ?
+	`, hash)
+	err := row.Scan(&doc.ID, &doc.Title, &doc.Content, &doc.Author, &doc.PublicationDate, &doc.URL, &doc.FilePath, &doc.Hash)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return Document{}, nil
+		}
+		return Document{}, fmt.Errorf("failed to get document by hash: %w", err)
+	}
+	return doc, nil
+}
+
+// DocumentHashExists checks if a document with the given hash exists
+func DocumentHashExists(db *DB, hash []byte) (bool, error) {
+	var exists int
+	row := db.db.QueryRow(`
+		SELECT 1 FROM documents WHERE hash = ? LIMIT 1
+	`, hash)
+	err := row.Scan(&exists)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return false, nil
+		}
+		return false, fmt.Errorf("failed to check if document hash exists: %w", err)
+	}
+	return true, nil
+}
+
+// DocumentHasBeenProcessed checks if a document has already been processed
+// (has chunks and embeddings)
+func DocumentHasBeenProcessed(db *DB, hash []byte) (bool, error) {
+	// First check if document exists
+	exists, err := DocumentHashExists(db, hash)
+	if err != nil {
+		return false, err
+	}
+	
+	if !exists {
+		return false, nil
+	}
+	
+	// Get document ID
+	doc, err := GetDocumentByHash(db, hash)
+	if err != nil {
+		return false, err
+	}
+	
+	// Check if document has chunks
+	var chunkCount int
+	err = db.db.QueryRow(`
+		SELECT COUNT(*) FROM chunks WHERE document_id = ?
+	`, doc.ID).Scan(&chunkCount)
+	if err != nil {
+		return false, fmt.Errorf("failed to check if document has chunks: %w", err)
+	}
+	
+	return chunkCount > 0, nil
 }

@@ -25,6 +25,24 @@ func TestChunkWithEmbeddings(t *testing.T) {
 		t.Fatalf("Failed to create embedding client: %v", err)
 	}
 
+	// Create a temporary database for testing
+	tempFile, err := os.CreateTemp("", "test-db-*.sqlite")
+	if err != nil {
+		t.Fatalf("Failed to create temp file: %v", err)
+	}
+	tempFile.Close()
+	dbPath := tempFile.Name()
+	
+	// Clean up after the test
+	defer os.Remove(dbPath)
+	
+	// Initialize the database
+	db, err := GetDB(dbPath)
+	if err != nil {
+		t.Fatalf("Failed to initialize database: %v", err)
+	}
+	defer Close(db)
+
 	doc := &Document{
 		ID:       1,
 		Content:  "This is a test chunk for embedding generation.\n\nThis is another test chunk with different content.",
@@ -34,7 +52,7 @@ func TestChunkWithEmbeddings(t *testing.T) {
 
 	user := &User{ID: 123}
 
-	chunks, err := ChunkDocument(doc, embeddingClient, user)
+	chunks, err := ChunkDocument(doc, embeddingClient, user, db)
 	if err != nil {
 		t.Fatalf("Failed to chunk document: %v", err)
 	}
