@@ -1,23 +1,47 @@
 <div class="footer-left" role="contentinfo">
-    <div class="logo">
-        {{ partial "logo.html" . }}
-    </div>
-    <div>
-        <p>Epistemic Technology</p>
-        <nav class="footer-social" aria-label="Social media links">
-            <ul>
-                <li><a href="https://www.linkedin.com/company/epistemic-technology-llc/" aria-label="Visit Epistemic Technology on LinkedIn">{{ readFile "assets/images/linkedin.svg" | safeHTML }}</a></li>
-                <li><a href="https://github.com/Epistemic-Technology" aria-label="Visit Epistemic Technology on GitHub">{{ readFile "assets/images/github.svg" | safeHTML }}</a></li>
-                <li><a href="https://bsky.app/profile/epistemic-tech.bsky.social" aria-label="Visit Epistemic Technology on Bluesky">{{ readFile "assets/images/bluesky.svg" | safeHTML }}</a></li>
-            </ul>
-        </nav>
-    </div>
+  <div class="logo">{{ partial "logo.html" . }}</div>
+  <div>
+    <p>Epistemic Technology</p>
+    <nav class="footer-social" aria-label="Social media links">
+      <ul>
+        <li>
+          <a
+            href="https://www.linkedin.com/company/epistemic-technology-llc/"
+            aria-label="Visit Epistemic Technology on LinkedIn"
+            >{{ readFile "assets/images/linkedin.svg" | safeHTML }}</a
+          >
+        </li>
+        <li>
+          <a
+            href="https://github.com/Epistemic-Technology"
+            aria-label="Visit Epistemic Technology on GitHub"
+            >{{ readFile "assets/images/github.svg" | safeHTML }}</a
+          >
+        </li>
+        <li>
+          <a
+            href="https://bsky.app/profile/epistemic-tech.bsky.social"
+            aria-label="Visit Epistemic Technology on Bluesky"
+            >{{ readFile "assets/images/bluesky.svg" | safeHTML }}</a
+          >
+        </li>
+      </ul>
+    </nav>
+  </div>
 </div>
 <div class="license-footer" role="contentinfo" aria-label="License information">
-    <p>Except where otherwise noted, content on this site is licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/" aria-label="Read more about Creative Commons Attribution-ShareAlike 4.0 International License">Creative Commons Attribution-ShareAlike 4.0 International License</a>.</p>
-    <div class="license-icons" aria-hidden="true">
-        {{ readFile "assets/images/cc.svg" | safeHTML }}
-        {{ readFile "assets/images/cc-by.svg" | safeHTML }}
-        {{ readFile "assets/images/cc-sa.svg" | safeHTML }}
-    </div>
+  <p>
+    Except where otherwise noted, content on this site is licensed under a
+    <a
+      href="https://creativecommons.org/licenses/by-sa/4.0/"
+      aria-label="Read more about Creative Commons Attribution-ShareAlike 4.0 International License"
+      >Creative Commons Attribution-ShareAlike 4.0 International License</a
+    >.
+  </p>
+  <div class="license-icons" aria-hidden="true">
+    {{ readFile "assets/images/cc.svg" | safeHTML }} {{ readFile
+    "assets/images/cc-by.svg" | safeHTML }} {{ readFile
+    "assets/images/cc-sa.svg" | safeHTML }}
+  </div>
 </div>
+{{ partial "chatbot.html" . }}
