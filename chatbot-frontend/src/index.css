@@ -1,5 +1,30 @@
 @import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
-@import "tailwindcss";
+
+@layer theme {
+  @import "tailwindcss/theme.css";
+}
+
+@layer base {
+  #chatbot {
+    @import "tailwindcss/preflight.css";
+  }
+
+  #chatbot .no-twp {
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+      all: revert-layer;
+    }
+  }
+}
+
+@layer components;
+
+@layer utilities {
+  @import "tailwindcss/utilities.css";
+}
 
 /* Terminal styling */
 .terminal-content {

@@ -4,6 +4,7 @@ import {
   ChatBufferProps,
   TerminalMessageProps,
   Source,
+  ChatRequest,
 } from "../types";
 import UserMessage from "./UserMessage";
 import BotMessage from "./BotMessage";
@@ -166,8 +167,9 @@ const ChatBuffer: Component<{
 
     const aboutSource: Source = {
       Title: "About our chatbot",
-      FilePath:
-        "/Users/mikethicke/github/epistemic.technology/site/content/about-our-chatbot.md",
+      FilePath: `${
+        import.meta.env.VITE_FILEPATH_BASE_DIR
+      }/about-our-chatbot.md`,
       Author: "",
       ID: -1,
       Content: "",
@@ -185,8 +187,9 @@ const ChatBuffer: Component<{
   };
 
   const contactCommand = () => {
-    const contactFilePath =
-      "/Users/mikethicke/github/epistemic.technology/site/content/contact.md";
+    const contactFilePath = `${
+      import.meta.env.VITE_FILEPATH_BASE_DIR
+    }/contact.md`;
     const contactURL = filePathToURL(contactFilePath);
     window.location.href = contactURL;
   };
@@ -225,6 +228,12 @@ const ChatBuffer: Component<{
   };
 
   const handleChatSubmit = async (query: string) => {
+    const chatRequest: ChatRequest = {
+      query: query,
+      history: chatHistory()
+        .map((message) => message.content)
+        .join("\n"),
+    };
     setChatHistory((prev) => [
       ...prev,
       {
@@ -300,7 +309,7 @@ const ChatBuffer: Component<{
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ query }),
+        body: JSON.stringify(chatRequest),
       });
 
       if (!response.ok) {

@@ -21,6 +21,11 @@ export interface Source {
   PublicationDate: string;
 }
 
+export interface ChatRequest {
+  query: string;
+  history: string;
+}
+
 export interface BotMessageProps extends TerminalMessageProps {}
 
 export interface UserMessageProps extends TerminalMessageProps {}

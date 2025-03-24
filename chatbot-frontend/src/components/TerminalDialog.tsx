@@ -114,7 +114,7 @@ const TerminalDialog: Component<TerminalDialogProps> = (props) => {
         <div class="flex justify-end items-center mb-1 px-6 pt-2">
           <button
             onClick={props.onClose}
-            class="text-blue-300 hover:text-blue-200 focus:outline-none"
+            class="text-blue-300 hover:text-blue-200 focus:outline-none cursor-pointer"
             aria-label="Close dialog"
           >
             X

@@ -5,8 +5,10 @@
  */
 export const filePathToURL = (filePath: string) => {
   // Extract the URL path from the file path by removing the base directory and changing .md to /
-  const baseDir = "/Users/mikethicke/github/epistemic.technology/site/content/";
+  const baseDir = import.meta.env.VITE_FILEPATH_BASE_DIR;
   let urlPath = filePath;
+  console.log("baseDir: ", baseDir);
+  console.log("filePath: ", filePath);
   if (filePath.startsWith(baseDir)) {
     const relativePath = filePath.substring(baseDir.length);
     urlPath = relativePath.replace(/\.md$/, "/");
