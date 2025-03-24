@@ -66,6 +66,13 @@ func validateEmail(email string) bool {
 }
 
 func initDB() (*sql.DB, error) {
+	// Ensure the /db/ directory exists
+	if _, err := os.Stat("/db"); os.IsNotExist(err) {
+		log.Printf("Creating /db directory")
+		if err := os.MkdirAll("/db", 0755); err != nil {
+			return nil, fmt.Errorf("failed to create /db directory: %v", err)
+		}
+	}
 	db, err := sql.Open("sqlite3", "/db/subscriptions.db")
 	if err != nil {
 		return nil, err
