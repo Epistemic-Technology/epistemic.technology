@@ -3,11 +3,14 @@ services:
     env_file:
       - .env
     build:
-      context: ./site
+      context: ./
+      dockerfile: site/Dockerfile
       args:
         - HUGO_PARAMS_formSubmitEndpoint=http://localhost:8888/
         - HUGO_PARAMS_subscribeConfirmEndpoint=http://localhost:8888/confirm
         - HUGO_PARAMS_subscribeSubmitEndpoint=http://localhost:8888/signup
+        - VITE_API_URL=http://localhost:8082/chat
+        - VITE_FILEPATH_BASE_DIR=/app/site/content/
     ports:
       - "8080:80"
     environment:
@@ -23,8 +26,17 @@ services:
     ports:
       - "8888:8080"
     environment:
-      - PORT=8080 
+      - PORT=8080
       - ALLOWED_ORIGIN=http://localhost:8080
+
+  chatbot-backend:
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: chatbot-backend/Dockerfile
+    ports:
+      - "8082:8080"
 
   blog-signup:
     env_file:
