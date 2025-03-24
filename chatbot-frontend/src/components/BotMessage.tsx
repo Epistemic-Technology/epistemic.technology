@@ -23,8 +23,6 @@ const BotMessage: Component<BotMessageProps> = (props) => {
                     <a
                       class="!text-blue-300"
                       href={filePathToURL(source.FilePath)}
-                      target="_blank"
-                      rel="noopener noreferrer"
                     >
                       {source.Title}
                     </a>
