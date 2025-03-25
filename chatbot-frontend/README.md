@@ -1,34 +1,36 @@
-## Usage
+# Epistemic Technology Chatbot Frontend
 
-Those templates dependencies are maintained via [pnpm](https://pnpm.io) via `pnpm up -Lri`.
+This is a SolidJS application that simulates a terminal interface for interacting with a chatbot. It runs on top of the [Epistemic Technology static site](../site/README.md).
 
-This is the reason you see a `pnpm-lock.yaml`. That being said, any package manager will work. This file can be safely be removed once you clone a template.
+## Architecture
 
-```bash
-$ npm install # or pnpm install or yarn install
+For a description of the architecture, see [About our chatbot](../site/content/about-our-chatbot.md). It uses Vite for building the application.
+
+## Environment Variables
+
+This application uses the following environment variables:
+
+- `VITE_API_URL`: The URL for the chatbot API endpoint. Defaults to "http://localhost:8181/chat" if not specified.
+- `VITE_FILEPATH_BASE_DIR`: Base directory path used for resolving file paths to URLs when referencing content files.
+
+### How Vite Handles Environment Variables
+
+Vite provides built-in support for environment variables through the `import.meta.env` object.
+
+Only variables prefixed with `VITE_` are exposed to your Vite-processed code. This is a security measure to prevent accidentally exposing sensitive environment variables to client-side code.
+
+To use environment variables in your local development:
+
+1. Create a `.env` file in the root of the project
+2. Add your environment variables using the format `VITE_VARIABLE_NAME=value`
+
+Example `.env` file:
+
+```
+VITE_API_URL=http://localhost:8181/chat
+VITE_FILEPATH_BASE_DIR=/path/to/content/files
 ```
 
-### Learn more on the [Solid Website](https://solidjs.com) and come chat with us on our [Discord](https://discord.com/invite/solidjs)
+## Running
 
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm run dev` or `npm start`
-
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-
-### `npm run build`
-
-Builds the app for production to the `dist` folder.<br>
-It correctly bundles Solid in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-## Deployment
-
-You can deploy the `dist` folder to any static host provider (netlify, surge, now, etc.)
+For local development, the app can be launched on top of a blank page with `npm run start`. For production, the app is built as part of the [static site build process](../site/Dockerfile) and rendered on to the [#chatbot](../site/layouts/partials/chatbot.html) div.
