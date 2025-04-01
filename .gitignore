@@ -41,3 +41,6 @@ sendgrid.env
 *.sqlite-shm
 *.sqlite-wal
 *.db
+
+# Ignore VSCode files
+.vscode/

@@ -129,6 +129,26 @@ blockquote {
 }
 
 /**
+ * Code Blocks
+ */
+pre {
+  background-color: var(--color-bg);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  font-size: 0.8rem;
+  max-width: 100%;
+}
+
+code {
+  font-family: "MartainMono", monospace;
+}
+
+.highlight > div {
+  overflow-x: auto;
+}
+
+/**
  * Layout Components
  */
 .wide {
