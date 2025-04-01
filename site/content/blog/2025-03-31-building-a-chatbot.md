@@ -1,7 +1,7 @@
 ---
 title: "Building a RAG chatbot with Go, SolidJS, Hugo, and SQLite"
 author: "Mike Thicke"
-date: 2025-03-21
+date: 2025-03-31
 draft: false
 ---
 
