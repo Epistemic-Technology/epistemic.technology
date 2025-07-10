@@ -1,19 +1,18 @@
-<!DOCTYPE html>
-<html lang="{{ site.Language.LanguageCode }}" dir="{{ or site.Language.LanguageDirection `ltr` }}">
-<head>
-  {{ partial "head.html" . }}
-  {{ $theme := resources.Get "js/theme.js" | minify | fingerprint }}
-  <script src="{{ $theme.RelPermalink }}"></script>
-</head>
-<body>
-  <header>
-    {{ partial "header.html" . }}
-  </header>
-  <main id="main-content">
-    {{ block "main" . }}{{ end }}
-  </main>
-  <footer>
-    {{ partial "footer.html" . }}
-  </footer>
-</body>
+<!doctype html>
+<html
+    lang="{{ site.Language.LanguageCode }}"
+    dir="{{ or site.Language.LanguageDirection `ltr` }}"
+>
+    <head>
+        {{ partial "head.html" . }} {{ $theme := resources.Get "js/theme.js" |
+        minify | fingerprint }}
+        <script src="{{ $theme.RelPermalink }}"></script>
+    </head>
+    <body>
+        <header>{{ partial "header.html" . }}</header>
+        <main id="main-content-{{ .Title | urlize }}">
+            {{ block "main" . }}{{ end }}
+        </main>
+        <footer>{{ partial "footer.html" . }}</footer>
+    </body>
 </html>
