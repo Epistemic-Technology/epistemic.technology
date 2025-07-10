@@ -2,12 +2,13 @@ server {
     listen       ${PORT};
     listen  [::]:${PORT};
     server_name  localhost;
-    
+
     root   /usr/share/nginx/html;
 
     #access_log  /var/log/nginx/host.access.log  main;
 
     location / {
+        try_files $uri $uri/ $uri.html =404;
         index  index.html index.htm;
     }
 
@@ -45,4 +46,3 @@ server {
         add_header Expires 0;
     }
 }
-
