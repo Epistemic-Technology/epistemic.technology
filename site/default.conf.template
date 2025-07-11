@@ -8,7 +8,7 @@ server {
     #access_log  /var/log/nginx/host.access.log  main;
 
     location / {
-        try_files $uri $uri/ $uri.html =404;
+        try_files $uri $uri/ $uri/index.html $uri.html =404;
         index  index.html index.htm;
     }
 
