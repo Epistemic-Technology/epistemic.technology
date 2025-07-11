@@ -7,9 +7,13 @@ server {
 
     #access_log  /var/log/nginx/host.access.log  main;
 
+    # Rewrite URLs without trailing slash or extension to add trailing slash
+    location ~ ^/[^.]*[^/]$ {
+        return 301 $scheme://$server_name$uri/;
+    }
+
     location / {
-        try_files $uri $uri/ $uri/index.html $uri.html =404;
-        index  index.html index.htm;
+        try_files $uri $uri/index.html $uri.html =404;
     }
 
 
