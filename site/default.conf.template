@@ -1,7 +1,7 @@
 server {
     listen       ${PORT};
     listen  [::]:${PORT};
-    server_name  localhost;
+    server_name  epistemic.technology www.epistemic.technology;
 
     root   /usr/share/nginx/html;
 
@@ -11,6 +11,8 @@ server {
         try_files $uri $uri/ $uri/index.html $uri.html =404;
         index  index.html index.htm;
     }
+
+
 
     #error_page  404              /404.html;
 
