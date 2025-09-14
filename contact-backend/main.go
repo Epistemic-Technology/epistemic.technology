@@ -7,16 +7,8 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/sendgrid/sendgrid-go"
-	"github.com/sendgrid/sendgrid-go/helpers/mail"
+	"github.com/Epistemic-Technology/epistemic.technology/contact-backend/internal/email"
 )
-
-type ContactSubmission struct {
-	Name    string `json:"name"`
-	Email   string `json:"email"`
-	Subject string `json:"subject"`
-	Message string `json:"message"`
-}
 
 type Response struct {
 	Success bool   `json:"success"`
@@ -38,7 +30,7 @@ func handleContact(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var submission ContactSubmission
+	var submission email.ContactSubmission
 	decoder := json.NewDecoder(r.Body)
 	if err := decoder.Decode(&submission); err != nil {
 		response := Response{
@@ -59,51 +51,13 @@ func handleContact(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	sendSendGridEmail(submission)
+	email.SendEmail(submission)
 
 	response := Response{
 		Success: true,
 		Message: "Contact submission received successfully",
 	}
 	sendJSONResponse(w, http.StatusOK, response)
-}
-
-func sendSendGridEmail(submission ContactSubmission) {
-	go func() {
-		from := mail.NewEmail(submission.Name, os.Getenv("CONTACT_SENDER_EMAIL"))
-		to := mail.NewEmail("Epistemic Technology", os.Getenv("CONTACT_EMAIL"))
-		message := mail.NewSingleEmail(
-			from,
-			submission.Subject,
-			to,
-			submission.Message,
-			submission.Message,
-		)
-		message.ReplyTo = mail.NewEmail(submission.Name, submission.Email)
-		log.Printf(
-			"Sending contact email from %s <%s> to %s with subject %s",
-			submission.Name,
-			submission.Email,
-			os.Getenv("CONTACT_EMAIL"),
-			submission.Subject,
-		)
-		apiKey := os.Getenv("SENDGRID_API_KEY")
-		if apiKey == "" {
-			log.Printf("SENDGRID_API_KEY is not set")
-			return
-		}
-		client := sendgrid.NewSendClient(apiKey)
-		response, err := client.Send(message)
-		if err != nil {
-			log.Printf("Error sending email: %v", err)
-			return
-		}
-		if response.StatusCode >= 400 {
-			log.Printf("Error sending email: %v", response)
-			return
-		}
-		log.Printf("Email sent successfully")
-	}()
 }
 
 func sendJSONResponse(w http.ResponseWriter, status int, data interface{}) {
